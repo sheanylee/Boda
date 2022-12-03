@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="store.model.MyTicket">
+	<select id="GetAllData" resultType="store.model.MyTicketBean">
+		select * from myticket where t_id=#{id}
+	</select>
+	
+	<insert id="InsertData">
+		insert into myticket values(#{o_id},#{o_name},#{o_order})
+	</insert>
+	
+	<update id="UpdateData">
+		update myticket set t_order=#{t_order} where t_id=#{t_id} and t_spec=#{t_spec}
+	</update>
+	
+	<select id="GetMyTicketCountById1" resultType="int">
+		select t_order from myticket where t_id=#{id} and t_spec='일반 관람권'
+	</select>
+	<select id="GetMyTicketCountById2" resultType="int">
+		select t_order from myticket where t_id=#{id} and t_spec='골드 관람권'
+	</select>
+	<select id="GetMyTicketCountById3" resultType="int">
+		select t_order from myticket where t_id=#{id} and t_spec='프리미엄 관람권'
+	</select>
+	
+	<select id="GetMyTicketCountById" resultType="int">
+      select sum(t_order) count from myticket where t_id=#{id}
+   </select>
+   
+   <select id="GetT_Order" resultType="int">
+      select t_order from myticket where t_id=#{t_id} and t_spec=#{t_spec}
+   </select>
+   
+   <insert id="InsertMyTicekt">
+      insert into myticket values(#{t_id},#{t_spec},#{t_order})
+   </insert>
+   
+   <update id="UpdatePlus">
+      update myticket set t_order=t_order+#{t_order} where t_id=#{t_id} and t_spec=#{t_spec}
+   </update>
+	
+</mapper>
+<!-- myticket.xml -->

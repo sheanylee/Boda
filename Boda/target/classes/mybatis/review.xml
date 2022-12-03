@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="review.ReviewBean">
+	
+	<select id="SelectReviewCount" resultType="int">
+		select count(*) from review
+		where r_movieName=#{r_movieName}
+	</select>
+	
+	<select id="SelectReview" resultType="MyReview">
+		select * from review
+		where r_movieName=#{r_movieName}
+		order by r_date desc
+	</select>	
+	
+	<insert id="InsertReview">
+		insert into review
+		values(review_seq.nextval, #{r_memberId}, #{r_movieName}, #{r_star}, #{r_review}, systimestamp)
+	</insert>
+	
+	<delete id="DeleteReview" parameterType="int">
+		delete review
+		where r_num=#{r_num}
+	</delete>
+	
+	<select id="CountReview" resultType="int">
+		select count(*) from review
+		where r_memberId=#{r_memberId} and r_movieName=#{r_movieName}
+	</select>
+	
+	<select id="AvgR_star" resultType="double">
+		select avg(r_star) from review
+		where r_movieName=#{r_movieName}
+	</select>
+</mapper>

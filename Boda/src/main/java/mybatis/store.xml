@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store.model.Store">
+	<select id="GetAllStoreticket" resultType="store.model.StoreBean">
+		select * from store where s_code='1'
+	</select>
+	
+	<select id="GetAllStorepopcorn" resultType="store.model.StoreBean">
+		select * from store where s_code='2'
+	</select>
+	
+	<select id="GetAllStorebeverage" resultType="store.model.StoreBean">
+		select * from store where s_code='3'
+	</select>
+	
+	<select id="GetAllStoresnak" resultType="store.model.StoreBean">
+		select * from store where s_code='4'
+	</select>
+	
+	<select id="GetStoreByS_num" resultType="store.model.StoreBean">
+		select * from store where s_num=#{x}
+	</select>
+	
+	<insert id="InsertStore">
+		insert into store values(s_seq.nextval,#{s_code},#{s_image},
+		#{s_name},#{s_price},#{s_stock},#{s_content},#{s_point})
+	</insert>
+	
+	<update id="UpdateStore">
+		update store set s_image=#{s_image}, s_name=#{s_name}, s_price=#{s_price},
+		s_stock=#{s_stock}, s_content=#{s_content}, s_point=#{s_point} where s_num=#{s_num}
+	</update>
+	
+	<delete id="DeleteStore">
+		delete store where s_num=#{s_num}
+	</delete>
+	
+	<select id="GetMyBookingList" resultType="book.model.BookBean"> <!--가영  -->
+        select distinct b.r_num, b.r_userId, b.r_price, b.r_reserDay, b.r_mname, b.r_theater, b.r_cinema, b.r_day, b.r_mstart, b.r_sno, b.r_paying, m.m_num, m.m_img as r_img 
+      from book b, movie m, member i where b.r_userId = #{userId} and m.m_name = b.r_mname
+     </select>
+</mapper>
+<!-- store.xml -->

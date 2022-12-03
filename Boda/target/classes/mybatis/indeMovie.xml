@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.IndeMovieBean">
+	
+	<select id="SelectTotalCount" resultType="int">
+		select count(*) from indeMovie
+		<if test="whatColumn=='title'">
+			where title like #{keyword}
+		</if>
+	</select>
+		
+	<select id="SelectIndeMovie" resultType="MyIndeMovie">
+		select * from indeMovie
+		<if test="whatColumn=='title'">
+			where title like #{keyword}
+		</if>
+		order by num desc
+	</select>
+	
+	<delete id="DeleteIndeMovie" parameterType="int">
+		delete indeMovie
+		where num=#{num}
+	</delete>
+	
+	<insert id="InsertIndeMovie">
+	 	insert into indeMovie
+	 	values(inde_seq.nextval, #{kind}, #{title}, #{img}, #{director}, #{year}, #{genre}, #{color}, #{type}, #{runtime}, #{premiere}, 
+	 	#{synopsis}, #{intention}, #{fest_awards}, #{direc_img1}, #{direc_info1}, #{direc_img2}, #{direc_info2}, #{note}, #{video}, 0)
+	</insert>	
+
+	<select id="SelectIndeMovieByNum" resultType="MyIndeMovie">
+		select * from indeMovie
+		where num=#{num}
+	</select>
+	
+	<update id="UpdateIndeMovie">
+		update indeMovie
+		set kind=#{kind}, title=#{title}, img=#{img}, director=#{director}, year=#{year}, genre=#{genre}, color=#{color}, type=#{type}, runtime=#{runtime}, premiere=#{premiere}, 
+		synopsis=#{synopsis}, intention=#{intention}, fest_awards=#{fest_awards}, direc_img1=#{direc_img1}, direc_info1=#{direc_info1}, direc_img2=#{direc_img2}, direc_info2=#{direc_info2}, 
+		note=#{note}, video=#{video}
+		where num=#{num}
+	</update>
+	
+</mapper>

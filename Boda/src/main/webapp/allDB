@@ -1,0 +1,3751 @@
+--year income
+
+drop sequence income_seq;
+create sequence income_seq
+increment by 1
+start with 1
+nocache;
+
+drop table income cascade constraints;
+create table income(
+no number primary key,
+t_name varchar2(50) unique, 
+y2019 number default 0,
+y2020 number default 0,
+y2021 number default 0,
+y2022 number default 0
+);
+
+insert into income values(income_seq.nextval, 'Boda강남' ,200000000,100000000,120000000,150000000);
+insert into income values(income_seq.nextval, 'Boda신촌' ,180000000,80000000,100000000,150000000);
+
+commit;
+
+---visit[방문자수 (통계)]
+
+drop sequence visit_seq;
+create sequence visit_seq
+increment by 1
+start with 1
+minvalue 1
+nocache;
+
+DROP TABLE visit CASCADE CONSTRAINTS;
+create table visit( 
+	vno number primary key, --pk
+	visit_date date default sysdate, --방문날짜
+	cnt number default 0 --몇번
+);
+
+
+insert into visit values(visit_seq.nextval,'2022-10-01',1500);
+insert into visit values(visit_seq.nextval,'2022-10-02',800);
+insert into visit values(visit_seq.nextval,'2022-10-03',900);
+insert into visit values(visit_seq.nextval,'2022-10-04',800);
+insert into visit values(visit_seq.nextval,'2022-10-05',1000);
+insert into visit values(visit_seq.nextval,'2022-10-06',1400);
+insert into visit values(visit_seq.nextval,'2022-10-07',900);
+insert into visit values(visit_seq.nextval,'2022-10-08',1300);
+insert into visit values(visit_seq.nextval,'2022-10-09',1000);
+insert into visit values(visit_seq.nextval,'2022-10-10',700);
+insert into visit values(visit_seq.nextval,'2022-10-11',1200);
+insert into visit values(visit_seq.nextval,'2022-10-12',1200);
+insert into visit values(visit_seq.nextval,'2022-10-13',1500);
+insert into visit values(visit_seq.nextval,'2022-10-14',1400);
+insert into visit values(visit_seq.nextval,'2022-10-15',1200);
+insert into visit values(visit_seq.nextval,'2022-10-16',1300);
+insert into visit values(visit_seq.nextval,'2022-10-17',1500);
+insert into visit values(visit_seq.nextval,'2022-10-18',800);
+insert into visit values(visit_seq.nextval,'2022-10-19',1300);
+insert into visit values(visit_seq.nextval,'2022-10-20',700);
+insert into visit values(visit_seq.nextval,'2022-10-21',500);
+insert into visit values(visit_seq.nextval,'2022-10-22',1700);
+insert into visit values(visit_seq.nextval,'2022-10-23',1500);
+insert into visit values(visit_seq.nextval,'2022-10-24',800);
+insert into visit values(visit_seq.nextval,'2022-10-25',1200);
+insert into visit values(visit_seq.nextval,'2022-10-26',1000);
+insert into visit values(visit_seq.nextval,'2022-10-27',1400);
+insert into visit values(visit_seq.nextval,'2022-10-28',1500);
+insert into visit values(visit_seq.nextval,'2022-10-29',1300);
+insert into visit values(visit_seq.nextval,'2022-10-30',1200);
+insert into visit values(visit_seq.nextval,'2022-10-31',1500);
+
+insert into visit values(visit_seq.nextval,'2022-11-01',1000);
+insert into visit values(visit_seq.nextval,'2022-11-02',1200);
+insert into visit values(visit_seq.nextval,'2022-11-02',900);
+insert into visit values(visit_seq.nextval,'2022-11-04',800);
+insert into visit values(visit_seq.nextval,'2022-11-05',1000);
+insert into visit values(visit_seq.nextval,'2022-11-06',700);
+insert into visit values(visit_seq.nextval,'2022-11-07',1200);
+insert into visit values(visit_seq.nextval,'2022-11-08',1500);
+insert into visit values(visit_seq.nextval,'2022-11-09',1000);
+insert into visit values(visit_seq.nextval,'2022-11-10',1100);
+insert into visit values(visit_seq.nextval,'2022-11-11',1200);
+insert into visit values(visit_seq.nextval,'2022-11-12',800);
+insert into visit values(visit_seq.nextval,'2022-11-13',1000);
+insert into visit values(visit_seq.nextval,'2022-11-14',1500);
+insert into visit values(visit_seq.nextval,'2022-11-15',1400);
+insert into visit values(visit_seq.nextval,'2022-11-16',1200);
+insert into visit values(visit_seq.nextval,'2022-11-17',1100);
+insert into visit values(visit_seq.nextval,'2022-11-18',700);
+insert into visit values(visit_seq.nextval,'2022-11-19',1300);
+insert into visit values(visit_seq.nextval,'2022-11-20',1000);
+insert into visit values(visit_seq.nextval,'2022-11-21',1200);
+insert into visit values(visit_seq.nextval,'2022-11-22',1100);
+insert into visit values(visit_seq.nextval,'2022-11-23',1400);
+
+
+commit;
+
+-----------------------------------------------------------------------------
+
+--timetable1
+drop sequence time_seq;
+create sequence time_seq
+increment by 1
+start with 1
+nocache;
+
+drop table timetable cascade constraints;
+
+create table timetable( --12
+num number primary key,
+theater varchar2(20) not null,
+cinema number not null, -- 󿵰 
+day timestamp not null,
+mstart timestamp default sysdate,
+gap number default 15,
+mend timestamp default sysdate,
+mname varchar2(80) not null,
+mgenre varchar2(15),
+mgrade number,
+mrun number,
+open date,
+bookingseat number default 0
+);
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-24','2022-11-24 12:00:00','2022-11-24 14:09:00','한산: 용의 출현');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-24','2022-11-24 16:00:00','2022-11-24 17:53:00','헌트');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-24','2022-11-24 18:00:00','2022-11-24 19:53:00','육사오(6/45)');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-24','2022-11-24 19:00:00','2022-11-24 21:09:00','공조2: 인터내셔날');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-24','2022-11-24 22:00:00','2022-09-31 00:10:00','탑건: 매버릭');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',2,'2022-11-24','2022-11-24 16:00:00','2022-11-24 18:09:00','한산: 용의 출현');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',2,'2022-11-24','2022-11-24 19:00:00','2022-11-24 21:10:00','놉');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',2,'2022-11-24','2022-11-24 22:30:00','2022-11-24 23:30:00','균열');
+
+----
+
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-25','2022-11-25 09:00:00','2022-11-25 11:47:00','정직한 후보2');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-25','2022-11-25 12:00:00','2022-11-25 14:47:00','정직한 후보2');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-25','2022-11-25 16:00:00','2022-11-25 17:47:00','정직한 후보2');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',1,'2022-11-25','2022-11-25 16:00:00','2022-11-25 17:47:00','정직한 후보2');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',2,'2022-11-25','2022-11-25 19:00:00','2022-11-25 21:02:00','인생은 아름다워');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',2,'2022-11-25','2022-11-25 22:00:00','2022-11-25 23:46:00','아바타 리마스터링');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',2,'2022-11-26','2022-11-26 10:00:00','2022-11-26 12:01:00','늑대사냥');
+
+insert into timetable (num ,theater ,cinema ,day ,mstart ,mend ,mname) 
+values(time_seq.nextval, 'Boda강남',2,'2022-11-26','2022-11-26 13:00:00','2022-11-26 14:47:00','정직한 후보2');
+
+
+set pagesize 300;
+set linesize 300;
+col num for 99; 
+col mgrade for 99; 
+col mrun for 999; 
+col theater for a20; 
+col cinema for 99; 
+col mstart for a20; 
+col mend for a20; 
+col mname for a20; 
+col mgenre for a20; 
+
+commit;
+
+----------------------------ask DB
+drop table ask cascade constraints;
+
+create table ask( 
+	ask_num number primary key,
+	ask_title varchar2(1000),
+	ask_content varchar2(4000)
+);
+drop sequence ask_seq;
+create sequence ask_seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 10000
+  nocache;
+  
+insert into ask values(
+	ask_seq.nextval,'[영화관이용] 상영관 내 다른 음식물의 반입이 되나요?',
+	'Boda 상영관 내 외부 음식물 반입은 가능합니다.
+단, 강한 냄새로 인해 영화 관람 시 다른 고객님에게 방해가 되는 품목에 한해서 (예 : 족발, 순대 등)
+취식 후 입장해 주실 것을 고객님께 양해(권고) 드리고 있습니다.
+쾌적한 영화 관람과 안전을 위하여 다소 불편한 점이 있으시더라도 많은 양해 부탁 드리겠습니다.'
+);
+insert into ask values(
+	ask_seq.nextval,'[영화관이용] 관람 등급에 대해 알고 싶습니다.',
+	'Boda는 영화진흥법에 의한 영화별 관람등급을 철저히 준수하고 있습니다.
+■ 등급 기준
+  - 전체 관람가 : 모든 연령의 관람객이 관람 할 수 있는 영화
+  - 12세 관람가 : 만 12세 미만의 관람객은 관람 할 수 없는 영화 (보호자 동반 시 12세 미만 관람 가능)
+  - 15세 관람가 : 만 15세 미만의 관람객은 관람 할 수 없는 영화 (보호자 동반 시 15세 미만 관람 가능)
+  - 청소년 관람불가 : 만 18세 미만의 관람객은 관람 할 수 없는 영화
+※ 만 18세 이상이라도 고등학생 신분은 청소년 관람불가 상영관에 입장 불가 (초, 중등교육법 제2조 규정)
+※ 관람 시 보호자는 만 20세 이상의 성인만 가능
+※ 온라인 예매 시 로그인한 예매자의 나이가 영화 등급에 해당 되지 않을 시 예매/결제 진행 불가
+※ 12세/15세 관람가 영화의 경우 입장시 본인 확인이 필요한 관계로 실물 신분증명서(학생증/여권 등) 지참 必
+※ 청소년 관람불가의 경우 입장 시 본인 확인이 필요한 관계로 실물 신분증명서(주민등록증/운전면허증/여권/PASS 모바일 운전면허증) 지참 必
+     (신분증 사진, PASS 화면 캡쳐본 사용 불가)'
+);
+insert into ask values(
+	ask_seq.nextval,'[홈페이지] 영화관람권으로 예매하는 방법',
+	'1) 온라인 예매(웹/앱)시
+- [마이페이지] – [영화관람권] – [등록하기] – [영화관람권 등록] 에서
+  관람권등록 후 영화예매시 결제단계에서 적용하여 예매가능합니다.
+- 웹/앱 로그인 후 예매선택후 결제 단계에서
+  [관람권/모바일상품권] - [관람권] - [관람권 등록] - [적용] - [결제] 차례로 선택하시면 예매가능합니다.
+* 완료된 예매 내역은 <예매확인/취소>에서도 확인 가능합니다.
+* 영화 관람권 사용의 경우, 온라인 비회원 예매는 불가능합니다.
+2) 무인발권기 예매시
+- 멤버십에 등록완료한 관람권의 경우 결제단계에서 [멤버십 조회] 후 보유목록 내에서 적용하여 예매가능합니다.
+  (회원 등록된 관람권의 경우 무인발권기에서 [바코드/난수번호]로 조회하여 사용불가)
+- 미등록관람권의 경우 관람권 번호 12자리와 인증번호4자리를 입력하여 조회 후 예매가능합니다.
+* 멤버십 등록된 영화관람권의 경우 현장매표소에서는 사용불가능합니다.'
+);
+insert into ask values(
+	ask_seq.nextval,'[홈페이지] 인터넷 예매 후 Boda 현장에서 환불(예매 취소)이 가능한가요?',
+	'인터넷 예매하신 부분은 상영시간 전까지는 Boda 현장에서 환불 가능합니다.
+단, 부분 환불은 되지 않습니다.
+- 신용카드 환불의 경우 익일에 승인 취소를 확인하실 수 있습니다.
+- 예매일과 취소일이 다른 경우에 취소 확인 시까지 시일이 소요될 수 있습니다.'
+);
+insert into ask values(
+	ask_seq.nextval,'[모바일] 관람권 사용해서 예매했는데 현금영수증 발행을 못했어요!',
+	'관람권 권종에 따라 현금영수증 발급 가능 여부가 상이하기 때문에
+현금영수증 발급 가능 여부 확인 후, 발급 가능한 사항 관람권일 경우에 자진발급 번호 안내해 드리고 있습니다.
+이후 국세청 홈페이지 접속하시어, 해당 자진발급 번호 입력하여 발급 받으실 수 있습니다.
+자세한 사항은 Boda고객센터(1544-1122)로 문의주시면 안내 드리겠습니다.'
+);
+
+commit;
+
+
+--12개
+drop table theater cascade constraints;
+create table theater(
+t_num number primary key,
+t_code varchar2(10) not null, --서울이면 앞에 S
+t_day date default sysdate not null, --설립일
+t_region varchar2(20) not null, --서울
+t_gu varchar2(60) not null, --서대문구
+t_address varchar2(60),
+t_theater varchar(30) not null,
+t_location varchar2(50),
+t_img varchar2(30),
+t_tel varchar2(15),
+t_parking varchar2(3) default 'yes',
+t_name number default 5 not null, --상영관
+t_seat number not null,
+t_premium varchar2(20) default '2D'
+);
+
+drop sequence theater_seq;
+create sequence theater_seq
+start with 1
+increment by 1
+nocache;
+
+----서울
+
+insert into theater values(theater_seq.nextval,'s01','2022-07-08','서울','서대문구','창천동 20-25 아트레온 2층','Boda신촌','37.5564819 ,126.940327','신촌.jpg','1544-1122','yes',1,100,'2D');
+insert into theater values(theater_seq.nextval,'s01','2022-07-08','서울','서대문구','창천동 20-25 아트레온 2층','Boda신촌','37.5564819 ,126.940327','신촌.jpg','1544-1122','yes',2,80,'2D');
+insert into theater values(theater_seq.nextval,'s01','2022-07-08','서울','서대문구','창천동 20-25 아트레온 2층','Boda신촌','37.5564819 ,126.940327','신촌.jpg','1544-1122','yes',3,80,'4DX');
+insert into theater values(theater_seq.nextval,'s01','2022-07-08','서울','서대문구','창천동 20-25 아트레온 2층','Boda신촌','37.5564819 ,126.940327','신촌.jpg','1544-1122','yes',4,100,'screenX');
+insert into theater values(theater_seq.nextval,'s01','2022-07-08','서울','서대문구','창천동 20-25 아트레온 2층','Boda신촌','37.5564819 ,126.940327','신촌.jpg','1544-1122','yes',5,150,'2D');
+
+insert into theater values(theater_seq.nextval,'s02','2022-07-08','서울','강남구','역삼동 814-6 스타플렉스','Boda강남','37.5015587, 127.026319','CGVgangnam.jpg','1544-1122','yes',1,100,'2D');
+insert into theater values(theater_seq.nextval,'s02','2022-07-08','서울','강남구','역삼동 814-6 스타플렉스','Boda강남','37.5015587, 127.026319','CGVgangnam.jpg','1544-1122','yes',2,80,'2D');
+insert into theater values(theater_seq.nextval,'s02','2022-07-08','서울','강남구','역삼동 814-6 스타플렉스','Boda강남','37.5015587, 127.026319','CGVgangnam.jpg','1544-1122','yes',3,100,'screenX');
+insert into theater values(theater_seq.nextval,'s02','2022-07-08','서울','강남구','역삼동 814-6 스타플렉스','Boda강남','37.5015587, 127.026319','CGVgangnam.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'s02','2022-07-08','서울','강남구','역삼동 814-6 스타플렉스','Boda강남','37.5015587, 127.026319','CGVgangnam.jpg','1544-1122','yes',5,80,'4DX');
+insert into theater values(theater_seq.nextval,'s02','2022-07-08','서울','강남구','역삼동 814-6 스타플렉스','Boda강남','37.5015587, 127.026319','CGVgangnam.jpg','1544-1122','yes',6,100,'2D');
+
+insert into theater values(theater_seq.nextval,'s03','2001-09-08','서울','광진구','구의동 546-4 테크노마트 10층','Boda강변','37.5358099,127.0952387','강변cgv.png','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s03','2001-09-08','서울','광진구','구의동 546-4 테크노마트 10층','Boda강변','37.5358099,127.0952387','강변cgv.png','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'s03','2001-09-08','서울','광진구','구의동 546-4 테크노마트 10층','Boda강변','37.5358099,127.0952387','강변cgv.png','1544-1122','yes',3,100,'2D');
+insert into theater values(theater_seq.nextval,'s03','2001-09-08','서울','광진구','구의동 546-4 테크노마트 10층','Boda강변','37.5358099,127.0952387','강변cgv.png','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'s03','2001-09-08','서울','광진구','구의동 546-4 테크노마트 10층','Boda강변','37.5358099,127.0952387','강변cgv.png','1544-1122','yes',5,80,'2D');
+insert into theater values(theater_seq.nextval,'s03','2001-09-08','서울','광진구','구의동 546-4 테크노마트 10층','Boda강변','37.5358099,127.0952387','강변cgv.png','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'s03','2001-09-08','서울','광진구','구의동 546-4 테크노마트 10층','Boda강변','37.5358099,127.0952387','강변cgv.png','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'s04','2001-09-08','서울','광진구','자양동 9-4 몰오브케이 3층','Boda건대입구','37.5397767,127.0669122','건대입구.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s04','2001-09-08','서울','광진구','자양동 9-4 몰오브케이 3층','Boda건대입구','37.5397767,127.0669122','건대입구.jpg','1544-1122','yes',2,150,'screenX');
+insert into theater values(theater_seq.nextval,'s04','2001-09-08','서울','광진구','자양동 9-4 몰오브케이 3층','Boda건대입구','37.5397767,127.0669122','건대입구.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'s04','2001-09-08','서울','광진구','자양동 9-4 몰오브케이 3층','Boda건대입구','37.5397767,127.0669122','건대입구.jpg','1544-1122','yes',4,100,'4DX');
+insert into theater values(theater_seq.nextval,'s04','2001-09-08','서울','광진구','자양동 9-4 몰오브케이 3층','Boda건대입구','37.5397767,127.0669122','건대입구.jpg','1544-1122','yes',5,150,'2D');
+insert into theater values(theater_seq.nextval,'s04','2001-09-08','서울','광진구','자양동 9-4 몰오브케이 3층','Boda건대입구','37.5397767,127.0669122','건대입구.jpg','1544-1122','yes',6,150,'2D');
+insert into theater values(theater_seq.nextval,'s04','2001-09-08','서울','광진구','자양동 9-4 몰오브케이 3층','Boda건대입구','37.5397767,127.0669122','건대입구.jpg','1544-1122','yes',7,80,'recline');
+
+insert into theater values(theater_seq.nextval,'s05','2001-09-08','서울','구로구','구로5동 573번지 NC신구로점 6층','Boda구로','37.5013426,126.8822987','구로.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s05','2001-09-08','서울','구로구','구로5동 573번지 NC신구로점 6층','Boda구로','37.5013426,126.8822987','구로.jpg','1544-1122','yes',2,150,'screenX');
+insert into theater values(theater_seq.nextval,'s05','2001-09-08','서울','구로구','구로5동 573번지 NC신구로점 6층','Boda구로','37.5013426,126.8822987','구로.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'s05','2001-09-08','서울','구로구','구로5동 573번지 NC신구로점 6층','Boda구로','37.5013426,126.8822987','구로.jpg','1544-1122','yes',4,100,'4DX');
+insert into theater values(theater_seq.nextval,'s05','2001-09-08','서울','구로구','구로5동 573번지 NC신구로점 6층','Boda구로','37.5013426,126.8822987','구로.jpg','1544-1122','yes',5,80,'recline');
+insert into theater values(theater_seq.nextval,'s05','2001-09-08','서울','구로구','구로5동 573번지 NC신구로점 6층','Boda구로','37.5013426,126.8822987','구로.jpg','1544-1122','yes',6,150,'2D');
+insert into theater values(theater_seq.nextval,'s05','2001-09-08','서울','구로구','구로5동 573번지 NC신구로점 6층','Boda구로','37.5013426,126.8822987','구로.jpg','1544-1122','yes',7,150,'2D');
+
+insert into theater values(theater_seq.nextval,'s06','2001-09-08','서울','종로구','명륜2가 41-9','Boda대학로','37.583422,126.999828','대학로.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s06','2001-09-08','서울','종로구','명륜2가 41-9','Boda대학로','37.583422,126.999828','대학로.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'s06','2001-09-08','서울','종로구','명륜2가 41-9','Boda대학로','37.583422,126.999828','대학로.jpg','1544-1122','yes',3,100,'screenX');
+insert into theater values(theater_seq.nextval,'s06','2001-09-08','서울','종로구','명륜2가 41-9','Boda대학로','37.583422,126.999828','대학로.jpg','1544-1122','yes',4,100,'screenX');
+insert into theater values(theater_seq.nextval,'s06','2001-09-08','서울','종로구','명륜2가 41-9','Boda대학로','37.583422,126.999828','대학로.jpg','1544-1122','yes',5,80,'recline');
+insert into theater values(theater_seq.nextval,'s06','2001-09-08','서울','종로구','명륜2가 41-9','Boda대학로','37.583422,126.999828','대학로.jpg','1544-1122','yes',6,100,'4DX');
+insert into theater values(theater_seq.nextval,'s06','2001-09-08','서울','종로구','명륜2가 41-9','Boda대학로','37.583422,126.999828','대학로.jpg','1544-1122','yes',7,100,'2D');
+
+insert into theater values(theater_seq.nextval,'s07','2001-09-08','서울','중구','을지로6가 17-2 현대시티아울렛 10층','Boda동대문' ,'37.5689617,127.0078661','동대문.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s07','2001-09-08','서울','중구','을지로6가 17-2 현대시티아울렛 10층','Boda동대문' ,'37.5689617,127.0078661','동대문.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'s07','2001-09-08','서울','중구','을지로6가 17-2 현대시티아울렛 10층','Boda동대문' ,'37.5689617,127.0078661','동대문.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'s07','2001-09-08','서울','중구','을지로6가 17-2 현대시티아울렛 10층','Boda동대문' ,'37.5689617,127.0078661','동대문.jpg','1544-1122','yes',4,100,'4DX');
+insert into theater values(theater_seq.nextval,'s07','2001-09-08','서울','중구','을지로6가 17-2 현대시티아울렛 10층','Boda동대문' ,'37.5689617,127.0078661','동대문.jpg','1544-1122','yes',5,80,'recline');
+insert into theater values(theater_seq.nextval,'s07','2001-09-08','서울','중구','을지로6가 17-2 현대시티아울렛 10층','Boda동대문' ,'37.5689617,127.0078661','동대문.jpg','1544-1122','yes',6,100,'screenX');
+insert into theater values(theater_seq.nextval,'s07','2001-09-08','서울','중구','을지로6가 17-2 현대시티아울렛 10층','Boda동대문' ,'37.5689617,127.0078661','동대문.jpg','1544-1122','yes',7,150,'screenX');
+
+insert into theater values(theater_seq.nextval,'s08','2001-09-08','서울','강서구','등촌동 639-23 3층~9층','Boda등촌' ,'37.5578035,126.85602','등촌.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s08','2001-09-08','서울','강서구','등촌동 639-23 3층~9층','Boda등촌' ,'37.5578035,126.85602','등촌.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'s08','2001-09-08','서울','강서구','등촌동 639-23 3층~9층','Boda등촌' ,'37.5578035,126.85602','등촌.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'s08','2001-09-08','서울','강서구','등촌동 639-23 3층~9층','Boda등촌' ,'37.5578035,126.85602','등촌.jpg','1544-1122','yes',4,100,'screenX');
+insert into theater values(theater_seq.nextval,'s08','2001-09-08','서울','강서구','등촌동 639-23 3층~9층','Boda등촌' ,'37.5578035,126.85602','등촌.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'s08','2001-09-08','서울','강서구','등촌동 639-23 3층~9층','Boda등촌' ,'37.5578035,126.85602','등촌.jpg','1544-1122','yes',6,80,'2D');
+
+insert into theater values(theater_seq.nextval,'s09','2001-09-08','서울','중구','명동2가 83-5번지 눈스퀘어 8층','Boda명동' ,'37.5633883,126.9828889','명동.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s09','2001-09-08','서울','중구','명동2가 83-5번지 눈스퀘어 8층','Boda명동' ,'37.5633883,126.9828889','명동.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'s09','2001-09-08','서울','중구','명동2가 83-5번지 눈스퀘어 8층','Boda명동' ,'37.5633883,126.9828889','명동.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'s09','2001-09-08','서울','중구','명동2가 83-5번지 눈스퀘어 8층','Boda명동' ,'37.5633883,126.9828889','명동.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'s09','2001-09-08','서울','중구','명동2가 83-5번지 눈스퀘어 8층','Boda명동' ,'37.5633883,126.9828889','명동.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'s09','2001-09-08','서울','중구','명동2가 83-5번지 눈스퀘어 8층','Boda명동' ,'37.5633883,126.9828889','명동.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'s09','2001-09-08','서울','중구','명동2가 83-5번지 눈스퀘어 8층','Boda명동' ,'37.5633883,126.9828889','명동.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'s10','2001-09-08','서울','양천구','목동 916번지 현대백화점 지하2층','Boda목동' ,'37.5268253,126.8749782','목동.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s10','2001-09-08','서울','양천구','목동 916번지 현대백화점 지하2층','Boda목동' ,'37.5268253,126.8749782','목동.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'s10','2001-09-08','서울','양천구','목동 916번지 현대백화점 지하2층','Boda목동' ,'37.5268253,126.8749782','목동.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'s10','2001-09-08','서울','양천구','목동 916번지 현대백화점 지하2층','Boda목동' ,'37.5268253,126.8749782','목동.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'s10','2001-09-08','서울','양천구','목동 916번지 현대백화점 지하2층','Boda목동' ,'37.5268253,126.8749782','목동.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'s10','2001-09-08','서울','양천구','목동 916번지 현대백화점 지하2층','Boda목동' ,'37.5268253,126.8749782','목동.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'s10','2001-09-08','서울','양천구','목동 916번지 현대백화점 지하2층','Boda목동' ,'37.5268253,126.8749782','목동.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'s11','2001-09-08','서울','도봉구','방학동 707-6, 4F~8F','Boda방학' ,'37.6653669,127.0434778','방학.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'s11','2001-09-08','서울','도봉구','방학동 707-6, 4F~8F','Boda방학' ,'37.6653669,127.0434778','방학.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'s11','2001-09-08','서울','도봉구','방학동 707-6, 4F~8F','Boda방학' ,'37.6653669,127.0434778','방학.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'s11','2001-09-08','서울','도봉구','방학동 707-6, 4F~8F','Boda방학' ,'37.6653669,127.0434778','방학.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'s11','2001-09-08','서울','도봉구','방학동 707-6, 4F~8F','Boda방학' ,'37.6653669,127.0434778','방학.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'s11','2001-09-08','서울','도봉구','방학동 707-6, 4F~8F','Boda방학' ,'37.6653669,127.0434778','방학.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'s11','2001-09-08','서울','도봉구','방학동 707-6, 4F~8F','Boda방학' ,'37.6653669,127.0434778','방학.jpg','1544-1122','yes',7,80,'2D');
+
+
+
+
+---경기<p style="color: #95D1CC;">${tbean.t_region }&nbsp;${tbean.t_gu }&nbsp;${tbean.t_address }</p><p style="color: #95D1CC;">${tbean.t_region }&nbsp;${tbean.t_gu }&nbsp;${tbean.t_address }</p>
+
+insert into theater values(theater_seq.nextval,'k01','2001-09-08','경기','광주시','역동16-1 2층','Boda경기광주' ,'37.4076901,127.2586327','경기광주.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'k01','2001-09-08','경기','광주시','역동16-1 2층','Boda경기광주' ,'37.4076901,127.2586327','경기광주.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'k01','2001-09-08','경기','광주시','역동16-1 2층','Boda경기광주' ,'37.4076901,127.2586327','경기광주.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'k01','2001-09-08','경기','광주시','역동16-1 2층','Boda경기광주' ,'37.4076901,127.2586327','경기광주.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'k01','2001-09-08','경기','광주시','역동16-1 2층','Boda경기광주' ,'37.4076901,127.2586327','경기광주.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'k01','2001-09-08','경기','광주시','역동16-1 2층','Boda경기광주' ,'37.4076901,127.2586327','경기광주.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'k01','2001-09-08','경기','광주시','역동16-1 2층','Boda경기광주' ,'37.4076901,127.2586327','경기광주.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'k02','2001-09-08','경기','고양시 덕양구 ','행신동 762-2,3 로터스플레이스 5F','Boda고양행신' ,'37.6134891,126.8344894','고양행신.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'k02','2001-09-08','경기','고양시 덕양구 ','행신동 762-2,3 로터스플레이스 5F','Boda고양행신' ,'37.6134891,126.8344894','고양행신.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'k02','2001-09-08','경기','고양시 덕양구 ','행신동 762-2,3 로터스플레이스 5F','Boda고양행신' ,'37.6134891,126.8344894','고양행신.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'k02','2001-09-08','경기','고양시 덕양구 ','행신동 762-2,3 로터스플레이스 5F','Boda고양행신' ,'37.6134891,126.8344894','고양행신.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'k02','2001-09-08','경기','고양시 덕양구 ','행신동 762-2,3 로터스플레이스 5F','Boda고양행신' ,'37.6134891,126.8344894','고양행신.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'k02','2001-09-08','경기','고양시 덕양구 ','행신동 762-2,3 로터스플레이스 5F','Boda고양행신' ,'37.6134891,126.8344894','고양행신.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'k02','2001-09-08','경기','고양시 덕양구 ','행신동 762-2,3 로터스플레이스 5F','Boda고양행신' ,'37.6134891,126.8344894','고양행신.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'k03','2001-09-08','경기','수원시 영통구','하동 955-70 갤러리아백화점 10층','Boda광교' ,'37.2853209,127.0574899','광교.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'k03','2001-09-08','경기','수원시 영통구','하동 955-70 갤러리아백화점 10층','Boda광교' ,'37.2853209,127.0574899','광교.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'k03','2001-09-08','경기','수원시 영통구','하동 955-70 갤러리아백화점 10층','Boda광교' ,'37.2853209,127.0574899','광교.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'k03','2001-09-08','경기','수원시 영통구','하동 955-70 갤러리아백화점 10층','Boda광교' ,'37.2853209,127.0574899','광교.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'k03','2001-09-08','경기','수원시 영통구','하동 955-70 갤러리아백화점 10층','Boda광교' ,'37.2853209,127.0574899','광교.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'k03','2001-09-08','경기','수원시 영통구','하동 955-70 갤러리아백화점 10층','Boda광교' ,'37.2853209,127.0574899','광교.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'k03','2001-09-08','경기','수원시 영통구','하동 955-70 갤러리아백화점 10층','Boda광교' ,'37.2853209,127.0574899','광교.jpg','1544-1122','yes',7,80,'2D');
+
+
+--인천
+
+insert into theater values(theater_seq.nextval,'i01','2001-09-08','인천','계양구','작전동 899-1 메트로몰 8층','Boda계양' ,'37.5336822,126.7345658','계양.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'i01','2001-09-08','인천','계양구','작전동 899-1 메트로몰 8층','Boda계양' ,'37.5336822,126.7345658','계양.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'i01','2001-09-08','인천','계양구','작전동 899-1 메트로몰 8층','Boda계양' ,'37.5336822,126.7345658','계양.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'i01','2001-09-08','인천','계양구','작전동 899-1 메트로몰 8층','Boda계양' ,'37.5336822,126.7345658','계양.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'i01','2001-09-08','인천','계양구','작전동 899-1 메트로몰 8층','Boda계양' ,'37.5336822,126.7345658','계양.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'i01','2001-09-08','인천','계양구','작전동 899-1 메트로몰 8층','Boda계양' ,'37.5336822,126.7345658','계양.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'i01','2001-09-08','인천','계양구','작전동 899-1 메트로몰 8층','Boda계양' ,'37.5336822,126.7345658','계양.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'i02','2001-09-08','인천','미추홀구','주안동 141-8','Boda남주안' ,'37.4633367,126.6807453','남주안.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'i02','2001-09-08','인천','미추홀구','주안동 141-8','Boda남주안' ,'37.4633367,126.6807453','남주안.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'i02','2001-09-08','인천','미추홀구','주안동 141-8','Boda남주안' ,'37.4633367,126.6807453','남주안.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'i02','2001-09-08','인천','미추홀구','주안동 141-8','Boda남주안' ,'37.4633367,126.6807453','남주안.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'i02','2001-09-08','인천','미추홀구','주안동 141-8','Boda남주안' ,'37.4633367,126.6807453','남주안.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'i02','2001-09-08','인천','미추홀구','주안동 141-8','Boda남주안' ,'37.4633367,126.6807453','남주안.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'i02','2001-09-08','인천','미추홀구','주안동 141-8','Boda남주안' ,'37.4633367,126.6807453','남주안.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'i03','2001-09-08','인천','부평구','청천동 386번지 아이즈빌아울렛 2층','Boda부평' ,'37.5217648,126.7036359','부평.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'i03','2001-09-08','인천','부평구','청천동 386번지 아이즈빌아울렛 2층','Boda부평' ,'37.5217648,126.7036359','부평.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'i03','2001-09-08','인천','부평구','청천동 386번지 아이즈빌아울렛 2층','Boda부평' ,'37.5217648,126.7036359','부평.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'i03','2001-09-08','인천','부평구','청천동 386번지 아이즈빌아울렛 2층','Boda부평' ,'37.5217648,126.7036359','부평.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'i03','2001-09-08','인천','부평구','청천동 386번지 아이즈빌아울렛 2층','Boda부평' ,'37.5217648,126.7036359','부평.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'i03','2001-09-08','인천','부평구','청천동 386번지 아이즈빌아울렛 2층','Boda부평' ,'37.5217648,126.7036359','부평.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'i03','2001-09-08','인천','부평구','청천동 386번지 아이즈빌아울렛 2층','Boda부평' ,'37.5217648,126.7036359','부평.jpg','1544-1122','yes',7,80,'2D');
+
+
+
+--강원도
+
+insert into theater values(theater_seq.nextval,'g01','2001-09-08','강원도','강릉시','옥천동 189 씨네몰 6~8층','Boda강릉' ,'37.7556866,128.8986385','강릉.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'g01','2001-09-08','강원도','강릉시','옥천동 189 씨네몰 6~8층','Boda강릉' ,'37.7556866,128.8986385','강릉.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'g01','2001-09-08','강원도','강릉시','옥천동 189 씨네몰 6~8층','Boda강릉' ,'37.7556866,128.8986385','강릉.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'g01','2001-09-08','강원도','강릉시','옥천동 189 씨네몰 6~8층','Boda강릉' ,'37.7556866,128.8986385','강릉.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'g01','2001-09-08','강원도','강릉시','옥천동 189 씨네몰 6~8층','Boda강릉' ,'37.7556866,128.8986385','강릉.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'g01','2001-09-08','강원도','강릉시','옥천동 189 씨네몰 6~8층','Boda강릉' ,'37.7556866,128.8986385','강릉.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'g01','2001-09-08','강원도','강릉시','옥천동 189 씨네몰 6~8층','Boda강릉' ,'37.7556866,128.8986385','강릉.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'g02','2001-09-08','강원도','원주시','단계동 877-1 W-city(원주 시외버스 터미널) 7층','Boda원주','37.3446625,127.93055','원주.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'g02','2001-09-08','강원도','원주시','단계동 877-1 W-city(원주 시외버스 터미널) 7층','Boda원주','37.3446625,127.93055','원주.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'g02','2001-09-08','강원도','원주시','단계동 877-1 W-city(원주 시외버스 터미널) 7층','Boda원주','37.3446625,127.93055','원주.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'g02','2001-09-08','강원도','원주시','단계동 877-1 W-city(원주 시외버스 터미널) 7층','Boda원주','37.3446625,127.93055','원주.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'g02','2001-09-08','강원도','원주시','단계동 877-1 W-city(원주 시외버스 터미널) 7층','Boda원주','37.3446625,127.93055','원주.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'g02','2001-09-08','강원도','원주시','단계동 877-1 W-city(원주 시외버스 터미널) 7층','Boda원주','37.3446625,127.93055','원주.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'g02','2001-09-08','강원도','원주시','단계동 877-1 W-city(원주 시외버스 터미널) 7층','Boda원주','37.3446625,127.93055','원주.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'g03','2001-09-08','강원도','인제군','북면 금강로 11번길 19, 2층','Boda원통','38.1201015,128.2064778','원통.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'g03','2001-09-08','강원도','인제군','북면 금강로 11번길 19, 2층','Boda원통','38.1201015,128.2064778','원통.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'g03','2001-09-08','강원도','인제군','북면 금강로 11번길 19, 2층','Boda원통','38.1201015,128.2064778','원통.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'g03','2001-09-08','강원도','인제군','북면 금강로 11번길 19, 2층','Boda원통','38.1201015,128.2064778','원통.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'g03','2001-09-08','강원도','인제군','북면 금강로 11번길 19, 2층','Boda원통','38.1201015,128.2064778','원통.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'g03','2001-09-08','강원도','인제군','북면 금강로 11번길 19, 2층','Boda원통','38.1201015,128.2064778','원통.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'g03','2001-09-08','강원도','인제군','북면 금강로 11번길 19, 2층','Boda원통','38.1201015,128.2064778','원통.jpg','1544-1122','yes',7,80,'2D');
+
+
+--대전/충청
+
+insert into theater values(theater_seq.nextval,'c01','2001-09-08','충남','논산시','내동 452 시네마타워 3층','Boda논산','36.1828503,127.0976201','논산.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'c01','2001-09-08','충남','논산시','내동 452 시네마타워 3층','Boda논산','36.1828503,127.0976201','논산.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'c01','2001-09-08','충남','논산시','내동 452 시네마타워 3층','Boda논산','36.1828503,127.0976201','논산.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'c01','2001-09-08','충남','논산시','내동 452 시네마타워 3층','Boda논산','36.1828503,127.0976201','논산.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'c01','2001-09-08','충남','논산시','내동 452 시네마타워 3층','Boda논산','36.1828503,127.0976201','논산.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'c01','2001-09-08','충남','논산시','내동 452 시네마타워 3층','Boda논산','36.1828503,127.0976201','논산.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'c01','2001-09-08','충남','논산시','내동 452 시네마타워 3층','Boda논산','36.1828503,127.0976201','논산.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'c02','2001-09-08','충남','당진시','우두1로 88 (읍내동)','Boda당진','36.9019704,126.6300242','당진.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'c02','2001-09-08','충남','당진시','우두1로 88 (읍내동)','Boda당진','36.9019704,126.6300242','당진.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'c02','2001-09-08','충남','당진시','우두1로 88 (읍내동)','Boda당진','36.9019704,126.6300242','당진.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'c02','2001-09-08','충남','당진시','우두1로 88 (읍내동)','Boda당진','36.9019704,126.6300242','당진.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'c02','2001-09-08','충남','당진시','우두1로 88 (읍내동)','Boda당진','36.9019704,126.6300242','당진.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'c02','2001-09-08','충남','당진시','우두1로 88 (읍내동)','Boda당진','36.9019704,126.6300242','당진.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'c02','2001-09-08','충남','당진시','우두1로 88 (읍내동)','Boda당진','36.9019704,126.6300242','당진.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'c03','2001-09-08','대전','중구','문화동 1-16 세이2 6층','Boda대전','36.320964,127.4089577','대전.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'c03','2001-09-08','대전','중구','문화동 1-16 세이2 6층','Boda대전','36.320964,127.4089577','대전.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'c03','2001-09-08','대전','중구','문화동 1-16 세이2 6층','Boda대전','36.320964,127.4089577','대전.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'c03','2001-09-08','대전','중구','문화동 1-16 세이2 6층','Boda대전','36.320964,127.4089577','대전.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'c03','2001-09-08','대전','중구','문화동 1-16 세이2 6층','Boda대전','36.320964,127.4089577','대전.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'c03','2001-09-08','대전','중구','문화동 1-16 세이2 6층','Boda대전','36.320964,127.4089577','대전.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'c03','2001-09-08','대전','중구','문화동 1-16 세이2 6층','Boda대전','36.320964,127.4089577','대전.jpg','1544-1122','yes',7,80,'2D');
+
+
+
+--대구
+
+insert into theater values(theater_seq.nextval,'d01','2001-09-08','대구','수성구','범물동 1273번지 동아백화점 8층','Boda대구수성','35.8211238,128.6404645','대구수성.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'d01','2001-09-08','대구','수성구','범물동 1273번지 동아백화점 8층','Boda대구수성','35.8211238,128.6404645','대구수성.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'d01','2001-09-08','대구','수성구','범물동 1273번지 동아백화점 8층','Boda대구수성','35.8211238,128.6404645','대구수성.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'d01','2001-09-08','대구','수성구','범물동 1273번지 동아백화점 8층','Boda대구수성','35.8211238,128.6404645','대구수성.jpg','1544-1122','yes',5,150,'screenX');
+
+insert into theater values(theater_seq.nextval,'d02','2001-09-08','대구','수성구','대흥동 504번지 일대','Boda대구스타디움','35.8321261,128.6865651','대구스타디움.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'d02','2001-09-08','대구','수성구','대흥동 504번지 일대','Boda대구스타디움','35.8321261,128.6865651','대구스타디움.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'d02','2001-09-08','대구','수성구','대흥동 504번지 일대','Boda대구스타디움','35.8321261,128.6865651','대구스타디움.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'d02','2001-09-08','대구','수성구','대흥동 504번지 일대','Boda대구스타디움','35.8321261,128.6865651','대구스타디움.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'d02','2001-09-08','대구','수성구','대흥동 504번지 일대','Boda대구스타디움','35.8321261,128.6865651','대구스타디움.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'d02','2001-09-08','대구','수성구','대흥동 504번지 일대','Boda대구스타디움','35.8321261,128.6865651','대구스타디움.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'d02','2001-09-08','대구','수성구','대흥동 504번지 일대','Boda대구스타디움','35.8321261,128.6865651','대구스타디움.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'d03','2001-09-08','대구','중구','남일동 65-1','Boda대구아카데미','35.8699789,128.5943108','대구아카데미.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'d03','2001-09-08','대구','중구','남일동 65-1','Boda대구아카데미','35.8699789,128.5943108','대구아카데미.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'d03','2001-09-08','대구','중구','남일동 65-1','Boda대구아카데미','35.8699789,128.5943108','대구아카데미.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'d03','2001-09-08','대구','중구','남일동 65-1','Boda대구아카데미','35.8699789,128.5943108','대구아카데미.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'d03','2001-09-08','대구','중구','남일동 65-1','Boda대구아카데미','35.8699789,128.5943108','대구아카데미.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'d03','2001-09-08','대구','중구','남일동 65-1','Boda대구아카데미','35.8699789,128.5943108','대구아카데미.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'d03','2001-09-08','대구','중구','남일동 65-1','Boda대구아카데미','35.8699789,128.5943108','대구아카데미.jpg','1544-1122','yes',7,80,'2D');
+
+
+--부산/울산
+
+insert into theater values(theater_seq.nextval,'b01','2001-09-08','부산','남구','대연동 73-15번지 스파크 5층','Boda대연','35.1373422,129.0992879','대연.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'b01','2001-09-08','부산','남구','대연동 73-15번지 스파크 5층','Boda대연','35.1373422,129.0992879','대연.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'b01','2001-09-08','부산','남구','대연동 73-15번지 스파크 5층','Boda대연','35.1373422,129.0992879','대연.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'b01','2001-09-08','부산','남구','대연동 73-15번지 스파크 5층','Boda대연','35.1373422,129.0992879','대연.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'b01','2001-09-08','부산','남구','대연동 73-15번지 스파크 5층','Boda대연','35.1373422,129.0992879','대연.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'b01','2001-09-08','부산','남구','대연동 73-15번지 스파크 5층','Boda대연','35.1373422,129.0992879','대연.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'b01','2001-09-08','부산','남구','대연동 73-15번지 스파크 5층','Boda대연','35.1373422,129.0992879','대연.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'b02','2001-09-08','부산','동래구','온천동 SK허브스카이 6층','Boda동래','35.2218016,129.0853805','동래.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'b02','2001-09-08','부산','동래구','온천동 SK허브스카이 6층','Boda동래','35.2218016,129.0853805','동래.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'b02','2001-09-08','부산','동래구','온천동 SK허브스카이 6층','Boda동래','35.2218016,129.0853805','동래.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'b02','2001-09-08','부산','동래구','온천동 SK허브스카이 6층','Boda동래','35.2218016,129.0853805','동래.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'b02','2001-09-08','부산','동래구','온천동 SK허브스카이 6층','Boda동래','35.2218016,129.0853805','동래.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'b02','2001-09-08','부산','동래구','온천동 SK허브스카이 6층','Boda동래','35.2218016,129.0853805','동래.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'b02','2001-09-08','부산','동래구','온천동 SK허브스카이 6층','Boda동래','35.2218016,129.0853805','동래.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'b03','2001-09-08','부산','강서구','명지동 3586-4 명지플러스시네마 9층','Boda부산명지','35.0944295,128.9036273','부산명지.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'b03','2001-09-08','부산','강서구','명지동 3586-4 명지플러스시네마 9층','Boda부산명지','35.0944295,128.9036273','부산명지.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'b03','2001-09-08','부산','강서구','명지동 3586-4 명지플러스시네마 9층','Boda부산명지','35.0944295,128.9036273','부산명지.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'b03','2001-09-08','부산','강서구','명지동 3586-4 명지플러스시네마 9층','Boda부산명지','35.0944295,128.9036273','부산명지.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'b03','2001-09-08','부산','강서구','명지동 3586-4 명지플러스시네마 9층','Boda부산명지','35.0944295,128.9036273','부산명지.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'b03','2001-09-08','부산','강서구','명지동 3586-4 명지플러스시네마 9층','Boda부산명지','35.0944295,128.9036273','부산명지.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'b03','2001-09-08','부산','강서구','명지동 3586-4 명지플러스시네마 9층','Boda부산명지','35.0944295,128.9036273','부산명지.jpg','1544-1122','yes',7,80,'2D');
+
+--경상남도
+
+
+insert into theater values(theater_seq.nextval,'y01','2001-09-08','경상남도','거제시','고현동 958-15 디큐브 백화점 6층','Boda거제','34.8910524,128.6165811','거제.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'y01','2001-09-08','경상남도','거제시','고현동 958-15 디큐브 백화점 6층','Boda거제','34.8910524,128.6165811','거제.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'y01','2001-09-08','경상남도','거제시','고현동 958-15 디큐브 백화점 6층','Boda거제','34.8910524,128.6165811','거제.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'y01','2001-09-08','경상남도','거제시','고현동 958-15 디큐브 백화점 6층','Boda거제','34.8910524,128.6165811','거제.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'y01','2001-09-08','경상남도','거제시','고현동 958-15 디큐브 백화점 6층','Boda거제','34.8910524,128.6165811','거제.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'y01','2001-09-08','경상남도','거제시','고현동 958-15 디큐브 백화점 6층','Boda거제','34.8910524,128.6165811','거제.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'y01','2001-09-08','경상남도','거제시','고현동 958-15 디큐브 백화점 6층','Boda거제','34.8910524,128.6165811','거제.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'y02','2001-09-08','경북','경산시','중방동 897','Boda경산','35.8329866,128.736583','경산.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'y02','2001-09-08','경북','경산시','중방동 897','Boda경산','35.8329866,128.736583','경산.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'y02','2001-09-08','경북','경산시','중방동 897','Boda경산','35.8329866,128.736583','경산.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'y02','2001-09-08','경북','경산시','중방동 897','Boda경산','35.8329866,128.736583','경산.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'y02','2001-09-08','경북','경산시','중방동 897','Boda경산','35.8329866,128.736583','경산.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'y02','2001-09-08','경북','경산시','중방동 897','Boda경산','35.8329866,128.736583','경산.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'y02','2001-09-08','경북','경산시','중방동 897','Boda경산','35.8329866,128.736583','경산.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'y03','2001-09-08','경상남도','고성군','고성읍 서외리 77-1','Boda고성','34.9770128,128.3159817','고성.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'y03','2001-09-08','경상남도','고성군','고성읍 서외리 77-1','Boda고성','34.9770128,128.3159817','고성.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'y03','2001-09-08','경상남도','고성군','고성읍 서외리 77-1','Boda고성','34.9770128,128.3159817','고성.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'y03','2001-09-08','경상남도','고성군','고성읍 서외리 77-1','Boda고성','34.9770128,128.3159817','고성.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'y03','2001-09-08','경상남도','고성군','고성읍 서외리 77-1','Boda고성','34.9770128,128.3159817','고성.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'y03','2001-09-08','경상남도','고성군','고성읍 서외리 77-1','Boda고성','34.9770128,128.3159817','고성.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'y03','2001-09-08','경상남도','고성군','고성읍 서외리 77-1','Boda고성','34.9770128,128.3159817','고성.jpg','1544-1122','yes',7,80,'2D');
+
+--광주/전라/제주
+
+insert into theater values(theater_seq.nextval,'j01','2001-09-08','전라남도','광양시','금호동 624-12 2층 몰오브광양','Boda광양','34.9355032,127.7229131','광양.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'j01','2001-09-08','전라남도','광양시','금호동 624-12 2층 몰오브광양','Boda광양','34.9355032,127.7229131','광양.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'j01','2001-09-08','전라남도','광양시','금호동 624-12 2층 몰오브광양','Boda광양','34.9355032,127.7229131','광양.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'j01','2001-09-08','전라남도','광양시','금호동 624-12 2층 몰오브광양','Boda광양','34.9355032,127.7229131','광양.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'j01','2001-09-08','전라남도','광양시','금호동 624-12 2층 몰오브광양','Boda광양','34.9355032,127.7229131','광양.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'j01','2001-09-08','전라남도','광양시','금호동 624-12 2층 몰오브광양','Boda광양','34.9355032,127.7229131','광양.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'j01','2001-09-08','전라남도','광양시','금호동 624-12 2층 몰오브광양','Boda광양','34.9355032,127.7229131','광양.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'j02','2001-09-08','광주광역시','동구','불로동 1-21 부로타워 2층','Boda광주금남로','35.1468586,126.9146598','광주금남로.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'j02','2001-09-08','광주광역시','동구','불로동 1-21 부로타워 2층','Boda광주금남로','35.1468586,126.9146598','광주금남로.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'j02','2001-09-08','광주광역시','동구','불로동 1-21 부로타워 2층','Boda광주금남로','35.1468586,126.9146598','광주금남로.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'j02','2001-09-08','광주광역시','동구','불로동 1-21 부로타워 2층','Boda광주금남로','35.1468586,126.9146598','광주금남로.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'j02','2001-09-08','광주광역시','동구','불로동 1-21 부로타워 2층','Boda광주금남로','35.1468586,126.9146598','광주금남로.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'j02','2001-09-08','광주광역시','동구','불로동 1-21 부로타워 2층','Boda광주금남로','35.1468586,126.9146598','광주금남로.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'j02','2001-09-08','광주광역시','동구','불로동 1-21 부로타워 2층','Boda광주금남로','35.1468586,126.9146598','광주금남로.jpg','1544-1122','yes',7,80,'2D');
+
+insert into theater values(theater_seq.nextval,'j03','2001-09-08','광주광역시','서구','치평동 1218-1 프리미엄아울렛 6층','Boda광주상무','35.15429,126.8510607','광주상무.jpg','1544-1122','yes',1,150,'2D');
+insert into theater values(theater_seq.nextval,'j03','2001-09-08','광주광역시','서구','치평동 1218-1 프리미엄아울렛 6층','Boda광주상무','35.15429,126.8510607','광주상무.jpg','1544-1122','yes',2,150,'2D');
+insert into theater values(theater_seq.nextval,'j03','2001-09-08','광주광역시','서구','치평동 1218-1 프리미엄아울렛 6층','Boda광주상무','35.15429,126.8510607','광주상무.jpg','1544-1122','yes',3,100,'4DX');
+insert into theater values(theater_seq.nextval,'j03','2001-09-08','광주광역시','서구','치평동 1218-1 프리미엄아울렛 6층','Boda광주상무','35.15429,126.8510607','광주상무.jpg','1544-1122','yes',4,100,'2D');
+insert into theater values(theater_seq.nextval,'j03','2001-09-08','광주광역시','서구','치평동 1218-1 프리미엄아울렛 6층','Boda광주상무','35.15429,126.8510607','광주상무.jpg','1544-1122','yes',5,150,'screenX');
+insert into theater values(theater_seq.nextval,'j03','2001-09-08','광주광역시','서구','치평동 1218-1 프리미엄아울렛 6층','Boda광주상무','35.15429,126.8510607','광주상무.jpg','1544-1122','yes',6,80,'2D');
+insert into theater values(theater_seq.nextval,'j03','2001-09-08','광주광역시','서구','치평동 1218-1 프리미엄아울렛 6층','Boda광주상무','35.15429,126.8510607','광주상무.jpg','1544-1122','yes',7,80,'2D');
+
+commit;
+
+set pagesize 300;
+set linesize 300;
+col t_num for 99;
+col T_ADDRESS for a35;
+col T_premium for a10;
+col t_theater for a20;
+col t_img for a20;
+col t_premium for a10;
+col t_name for 99;
+col t_region for a15;
+select * from  theater;
+
+
+
+--seat3
+--seat
+drop table seat cascade constraints;
+create table seat(
+	sno varchar2(30), --seat number
+	scode number, --80,100,150
+	userNo varchar2(30), --id
+	status number not null, --0,1
+	tnum number, --timetable num
+    foreign key(tnum) references timetable(num)
+);
+
+
+
+ insert into seat(sno, scode, status) values ('a1',80, 0);
+ insert into seat(sno, scode, status) values ('a2',80, 0);
+ insert into seat(sno, scode, status) values ('a3',80, 0);
+ insert into seat(sno, scode, status) values ('a4',80, 0);
+ insert into seat(sno, scode, status) values ('a5',80, 0);
+ insert into seat(sno, scode, status) values ('a6',80, 0);
+ insert into seat(sno, scode, status) values ('a7',80, 0);
+ insert into seat(sno, scode, status) values ('a8',80, 0);
+ insert into seat(sno, scode, status) values ('a9',80, 0);
+ insert into seat(sno, scode, status) values ('a10',80, 0);
+ insert into seat(sno, scode, status) values ('a11',80, 0);
+ insert into seat(sno, scode, status) values ('a12',80, 0);
+ insert into seat(sno, scode, status) values ('a13',80, 0);
+ insert into seat(sno, scode, status) values ('a14',80, 0);
+ insert into seat(sno, scode, status) values ('a15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('b1',80, 0);
+ insert into seat(sno, scode, status) values ('b2',80, 0);
+ insert into seat(sno, scode, status) values ('b3',80, 0);
+ insert into seat(sno, scode, status) values ('b4',80, 0);
+ insert into seat(sno, scode, status) values ('b5',80, 0);
+ insert into seat(sno, scode, status) values ('b6',80, 0);
+ insert into seat(sno, scode, status) values ('b7',80, 0);
+ insert into seat(sno, scode, status) values ('b8',80, 0);
+ insert into seat(sno, scode, status) values ('b9',80, 0);
+ insert into seat(sno, scode, status) values ('b10',80, 0);
+ insert into seat(sno, scode, status) values ('b11',80, 0);
+ insert into seat(sno, scode, status) values ('b12',80, 0);
+ insert into seat(sno, scode, status) values ('b13',80, 0);
+ insert into seat(sno, scode, status) values ('b14',80, 0);
+ insert into seat(sno, scode, status) values ('b15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('c1',80, 0);
+ insert into seat(sno, scode, status) values ('c2',80, 0);
+ insert into seat(sno, scode, status) values ('c3',80, 0);
+ insert into seat(sno, scode, status) values ('c4',80, 0);
+ insert into seat(sno, scode, status) values ('c5',80, 0);
+ insert into seat(sno, scode, status) values ('c6',80, 0);
+ insert into seat(sno, scode, status) values ('c7',80, 0);
+ insert into seat(sno, scode, status) values ('c8',80, 0);
+ insert into seat(sno, scode, status) values ('c9',80, 0);
+ insert into seat(sno, scode, status) values ('c10',80, 0);
+ insert into seat(sno, scode, status) values ('c11',80, 0);
+ insert into seat(sno, scode, status) values ('c12',80, 0);
+ insert into seat(sno, scode, status) values ('c13',80, 0);
+ insert into seat(sno, scode, status) values ('c14',80, 0);
+ insert into seat(sno, scode, status) values ('c15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('d1',80, 0);
+ insert into seat(sno, scode, status) values ('d2',80, 0);
+ insert into seat(sno, scode, status) values ('d3',80, 0);
+ insert into seat(sno, scode, status) values ('d4',80, 0);
+ insert into seat(sno, scode, status) values ('d5',80, 0);
+ insert into seat(sno, scode, status) values ('d6',80, 0);
+ insert into seat(sno, scode, status) values ('d7',80, 0);
+ insert into seat(sno, scode, status) values ('d8',80, 0);
+ insert into seat(sno, scode, status) values ('d9',80, 0);
+ insert into seat(sno, scode, status) values ('d10',80, 0);
+ insert into seat(sno, scode, status) values ('d11',80, 0);
+ insert into seat(sno, scode, status) values ('d12',80, 0);
+ insert into seat(sno, scode, status) values ('d13',80, 0);
+ insert into seat(sno, scode, status) values ('d14',80, 0);
+ insert into seat(sno, scode, status) values ('d15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('e1',80, 0);
+ insert into seat(sno, scode, status) values ('e2',80, 0);
+ insert into seat(sno, scode, status) values ('e3',80, 0);
+ insert into seat(sno, scode, status) values ('e4',80, 0);
+ insert into seat(sno, scode, status) values ('e5',80, 0);
+ insert into seat(sno, scode, status) values ('e6',80, 0);
+ insert into seat(sno, scode, status) values ('e7',80, 0);
+ insert into seat(sno, scode, status) values ('e8',80, 0);
+ insert into seat(sno, scode, status) values ('e9',80, 0);
+ insert into seat(sno, scode, status) values ('e10',80, 0);
+ insert into seat(sno, scode, status) values ('e11',80, 0);
+ insert into seat(sno, scode, status) values ('e12',80, 0);
+ insert into seat(sno, scode, status) values ('e13',80, 0);
+ insert into seat(sno, scode, status) values ('e14',80, 0);
+ insert into seat(sno, scode, status) values ('e15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('f1',80, 0);
+ insert into seat(sno, scode, status) values ('f2',80, 0);
+ insert into seat(sno, scode, status) values ('f3',80, 0);
+ insert into seat(sno, scode, status) values ('f4',80, 0);
+ insert into seat(sno, scode, status) values ('f5',80, 0);
+ insert into seat(sno, scode, status) values ('f6',80, 0);
+ insert into seat(sno, scode, status) values ('f7',80, 0);
+ insert into seat(sno, scode, status) values ('f8',80, 0);
+ insert into seat(sno, scode, status) values ('f9',80, 0);
+ insert into seat(sno, scode, status) values ('f10',80, 0);
+ insert into seat(sno, scode, status) values ('f11',80, 0);
+ insert into seat(sno, scode, status) values ('f12',80, 0);
+ insert into seat(sno, scode, status) values ('f13',80, 0);
+ insert into seat(sno, scode, status) values ('f14',80, 0);
+ insert into seat(sno, scode, status) values ('f15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('g1',80, 0);
+ insert into seat(sno, scode, status) values ('g2',80, 0);
+ insert into seat(sno, scode, status) values ('g3',80, 0);
+ insert into seat(sno, scode, status) values ('g4',80, 0);
+ insert into seat(sno, scode, status) values ('g5',80, 0);
+ insert into seat(sno, scode, status) values ('g6',80, 0);
+ insert into seat(sno, scode, status) values ('g7',80, 0);
+ insert into seat(sno, scode, status) values ('g8',80, 0);
+ insert into seat(sno, scode, status) values ('g9',80, 0);
+ insert into seat(sno, scode, status) values ('g10',80, 0);
+ insert into seat(sno, scode, status) values ('g11',80, 0);
+ insert into seat(sno, scode, status) values ('g12',80, 0);
+ insert into seat(sno, scode, status) values ('g13',80, 0);
+ insert into seat(sno, scode, status) values ('g14',80, 0);
+ insert into seat(sno, scode, status) values ('g15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('h1',80, 0);
+ insert into seat(sno, scode, status) values ('h2',80, 0);
+ insert into seat(sno, scode, status) values ('h3',80, 0);
+ insert into seat(sno, scode, status) values ('h4',80, 0);
+ insert into seat(sno, scode, status) values ('h5',80, 0);
+ insert into seat(sno, scode, status) values ('h6',80, 0);
+ insert into seat(sno, scode, status) values ('h7',80, 0);
+ insert into seat(sno, scode, status) values ('h8',80, 0);
+ insert into seat(sno, scode, status) values ('h9',80, 0);
+ insert into seat(sno, scode, status) values ('h10',80, 0);
+ insert into seat(sno, scode, status) values ('h11',80, 0);
+ insert into seat(sno, scode, status) values ('h12',80, 0);
+ insert into seat(sno, scode, status) values ('h13',80, 0);
+ insert into seat(sno, scode, status) values ('h14',80, 0);
+ insert into seat(sno, scode, status) values ('h15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('i1',80, 0);
+ insert into seat(sno, scode, status) values ('i2',80, 0);
+ insert into seat(sno, scode, status) values ('i3',80, 0);
+ insert into seat(sno, scode, status) values ('i4',80, 0);
+ insert into seat(sno, scode, status) values ('i5',80, 0);
+ insert into seat(sno, scode, status) values ('i6',80, 0);
+ insert into seat(sno, scode, status) values ('i7',80, 0);
+ insert into seat(sno, scode, status) values ('i8',80, 0);
+ insert into seat(sno, scode, status) values ('i9',80, 0);
+ insert into seat(sno, scode, status) values ('i10',80, 0);
+ insert into seat(sno, scode, status) values ('i11',80, 0);
+ insert into seat(sno, scode, status) values ('i12',80, 0);
+ insert into seat(sno, scode, status) values ('i13',80, 0);
+ insert into seat(sno, scode, status) values ('i14',80, 0);
+ insert into seat(sno, scode, status) values ('i15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('j1',80, 0);
+ insert into seat(sno, scode, status) values ('j2',80, 0);
+ insert into seat(sno, scode, status) values ('j3',80, 0);
+ insert into seat(sno, scode, status) values ('j4',80, 0);
+ insert into seat(sno, scode, status) values ('j5',80, 0);
+ insert into seat(sno, scode, status) values ('j6',80, 0);
+ insert into seat(sno, scode, status) values ('j7',80, 0);
+ insert into seat(sno, scode, status) values ('j8',80, 0);
+ insert into seat(sno, scode, status) values ('j9',80, 0);
+ insert into seat(sno, scode, status) values ('j10',80, 0);
+ insert into seat(sno, scode, status) values ('j11',80, 0);
+ insert into seat(sno, scode, status) values ('j12',80, 0);
+ insert into seat(sno, scode, status) values ('j13',80, 0);
+ insert into seat(sno, scode, status) values ('j14',80, 0);
+ insert into seat(sno, scode, status) values ('j15',80, 0);
+ 
+ insert into seat(sno, scode, status) values ('a1',100, 0);
+ insert into seat(sno, scode, status) values ('a2',100, 0);
+ insert into seat(sno, scode, status) values ('a3',100, 0);
+ insert into seat(sno, scode, status) values ('a4',100, 0);
+ insert into seat(sno, scode, status) values ('a5',100, 0);
+ insert into seat(sno, scode, status) values ('a6',100, 0);
+ insert into seat(sno, scode, status) values ('a7',100, 0);
+ insert into seat(sno, scode, status) values ('a8',100, 0);
+ insert into seat(sno, scode, status) values ('a9',100, 0);
+ insert into seat(sno, scode, status) values ('a10',100, 0);
+ insert into seat(sno, scode, status) values ('a11',100, 0);
+ insert into seat(sno, scode, status) values ('a12',100, 0);
+ insert into seat(sno, scode, status) values ('a13',100, 0);
+ insert into seat(sno, scode, status) values ('a14',100, 0);
+ insert into seat(sno, scode, status) values ('a15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('b1',100, 0);
+ insert into seat(sno, scode, status) values ('b2',100, 0);
+ insert into seat(sno, scode, status) values ('b3',100, 0);
+ insert into seat(sno, scode, status) values ('b4',100, 0);
+ insert into seat(sno, scode, status) values ('b5',100, 0);
+ insert into seat(sno, scode, status) values ('b6',100, 0);
+ insert into seat(sno, scode, status) values ('b7',100, 0);
+ insert into seat(sno, scode, status) values ('b8',100, 0);
+ insert into seat(sno, scode, status) values ('b9',100, 0);
+ insert into seat(sno, scode, status) values ('b10',100, 0);
+ insert into seat(sno, scode, status) values ('b11',100, 0);
+ insert into seat(sno, scode, status) values ('b12',100, 0);
+ insert into seat(sno, scode, status) values ('b13',100, 0);
+ insert into seat(sno, scode, status) values ('b14',100, 0);
+ insert into seat(sno, scode, status) values ('b15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('c1',100, 0);
+ insert into seat(sno, scode, status) values ('c2',100, 0);
+ insert into seat(sno, scode, status) values ('c3',100, 0);
+ insert into seat(sno, scode, status) values ('c4',100, 0);
+ insert into seat(sno, scode, status) values ('c5',100, 0);
+ insert into seat(sno, scode, status) values ('c6',100, 0);
+ insert into seat(sno, scode, status) values ('c7',100, 0);
+ insert into seat(sno, scode, status) values ('c8',100, 0);
+ insert into seat(sno, scode, status) values ('c9',100, 0);
+ insert into seat(sno, scode, status) values ('c10',100, 0);
+ insert into seat(sno, scode, status) values ('c11',100, 0);
+ insert into seat(sno, scode, status) values ('c12',100, 0);
+ insert into seat(sno, scode, status) values ('c13',100, 0);
+ insert into seat(sno, scode, status) values ('c14',100, 0);
+ insert into seat(sno, scode, status) values ('c15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('d1',100, 0);
+ insert into seat(sno, scode, status) values ('d2',100, 0);
+ insert into seat(sno, scode, status) values ('d3',100, 0);
+ insert into seat(sno, scode, status) values ('d4',100, 0);
+ insert into seat(sno, scode, status) values ('d5',100, 0);
+ insert into seat(sno, scode, status) values ('d6',100, 0);
+ insert into seat(sno, scode, status) values ('d7',100, 0);
+ insert into seat(sno, scode, status) values ('d8',100, 0);
+ insert into seat(sno, scode, status) values ('d9',100, 0);
+ insert into seat(sno, scode, status) values ('d10',100, 0);
+ insert into seat(sno, scode, status) values ('d11',100, 0);
+ insert into seat(sno, scode, status) values ('d12',100, 0);
+ insert into seat(sno, scode, status) values ('d13',100, 0);
+ insert into seat(sno, scode, status) values ('d14',100, 0);
+ insert into seat(sno, scode, status) values ('d15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('e1',100, 0);
+ insert into seat(sno, scode, status) values ('e2',100, 0);
+ insert into seat(sno, scode, status) values ('e3',100, 0);
+ insert into seat(sno, scode, status) values ('e4',100, 0);
+ insert into seat(sno, scode, status) values ('e5',100, 0);
+ insert into seat(sno, scode, status) values ('e6',100, 0);
+ insert into seat(sno, scode, status) values ('e7',100, 0);
+ insert into seat(sno, scode, status) values ('e8',100, 0);
+ insert into seat(sno, scode, status) values ('e9',100, 0);
+ insert into seat(sno, scode, status) values ('e10',100, 0);
+ insert into seat(sno, scode, status) values ('e11',100, 0);
+ insert into seat(sno, scode, status) values ('e12',100, 0);
+ insert into seat(sno, scode, status) values ('e13',100, 0);
+ insert into seat(sno, scode, status) values ('e14',100, 0);
+ insert into seat(sno, scode, status) values ('e15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('f1',100, 0);
+ insert into seat(sno, scode, status) values ('f2',100, 0);
+ insert into seat(sno, scode, status) values ('f3',100, 0);
+ insert into seat(sno, scode, status) values ('f4',100, 0);
+ insert into seat(sno, scode, status) values ('f5',100, 0);
+ insert into seat(sno, scode, status) values ('f6',100, 0);
+ insert into seat(sno, scode, status) values ('f7',100, 0);
+ insert into seat(sno, scode, status) values ('f8',100, 0);
+ insert into seat(sno, scode, status) values ('f9',100, 0);
+ insert into seat(sno, scode, status) values ('f10',100, 0);
+ insert into seat(sno, scode, status) values ('f11',100, 0);
+ insert into seat(sno, scode, status) values ('f12',100, 0);
+ insert into seat(sno, scode, status) values ('f13',100, 0);
+ insert into seat(sno, scode, status) values ('f14',100, 0);
+ insert into seat(sno, scode, status) values ('f15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('g1',100, 0);
+ insert into seat(sno, scode, status) values ('g2',100, 0);
+ insert into seat(sno, scode, status) values ('g3',100, 0);
+ insert into seat(sno, scode, status) values ('g4',100, 0);
+ insert into seat(sno, scode, status) values ('g5',100, 0);
+ insert into seat(sno, scode, status) values ('g6',100, 0);
+ insert into seat(sno, scode, status) values ('g7',100, 0);
+ insert into seat(sno, scode, status) values ('g8',100, 0);
+ insert into seat(sno, scode, status) values ('g9',100, 0);
+ insert into seat(sno, scode, status) values ('g10',100, 0);
+ insert into seat(sno, scode, status) values ('g11',100, 0);
+ insert into seat(sno, scode, status) values ('g12',100, 0);
+ insert into seat(sno, scode, status) values ('g13',100, 0);
+ insert into seat(sno, scode, status) values ('g14',100, 0);
+ insert into seat(sno, scode, status) values ('g15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('h1',100, 0);
+ insert into seat(sno, scode, status) values ('h2',100, 0);
+ insert into seat(sno, scode, status) values ('h3',100, 0);
+ insert into seat(sno, scode, status) values ('h4',100, 0);
+ insert into seat(sno, scode, status) values ('h5',100, 0);
+ insert into seat(sno, scode, status) values ('h6',100, 0);
+ insert into seat(sno, scode, status) values ('h7',100, 0);
+ insert into seat(sno, scode, status) values ('h8',100, 0);
+ insert into seat(sno, scode, status) values ('h9',100, 0);
+ insert into seat(sno, scode, status) values ('h10',100, 0);
+ insert into seat(sno, scode, status) values ('h11',100, 0);
+ insert into seat(sno, scode, status) values ('h12',100, 0);
+ insert into seat(sno, scode, status) values ('h13',100, 0);
+ insert into seat(sno, scode, status) values ('h14',100, 0);
+ insert into seat(sno, scode, status) values ('h15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('i1',100, 0);
+ insert into seat(sno, scode, status) values ('i2',100, 0);
+ insert into seat(sno, scode, status) values ('i3',100, 0);
+ insert into seat(sno, scode, status) values ('i4',100, 0);
+ insert into seat(sno, scode, status) values ('i5',100, 0);
+ insert into seat(sno, scode, status) values ('i6',100, 0);
+ insert into seat(sno, scode, status) values ('i7',100, 0);
+ insert into seat(sno, scode, status) values ('i8',100, 0);
+ insert into seat(sno, scode, status) values ('i9',100, 0);
+ insert into seat(sno, scode, status) values ('i10',100, 0);
+ insert into seat(sno, scode, status) values ('i11',100, 0);
+ insert into seat(sno, scode, status) values ('i12',100, 0);
+ insert into seat(sno, scode, status) values ('i13',100, 0);
+ insert into seat(sno, scode, status) values ('i14',100, 0);
+ insert into seat(sno, scode, status) values ('i15',100, 0);
+ 
+ insert into seat(sno, scode, status) values ('j1',100, 0);
+ insert into seat(sno, scode, status) values ('j2',100, 0);
+ insert into seat(sno, scode, status) values ('j3',100, 0);
+ insert into seat(sno, scode, status) values ('j4',100, 0);
+ insert into seat(sno, scode, status) values ('j5',100, 0);
+ insert into seat(sno, scode, status) values ('j6',100, 0);
+ insert into seat(sno, scode, status) values ('j7',100, 0);
+ insert into seat(sno, scode, status) values ('j8',100, 0);
+ insert into seat(sno, scode, status) values ('j9',100, 0);
+ insert into seat(sno, scode, status) values ('j10',100, 0);
+ insert into seat(sno, scode, status) values ('j11',100, 0);
+ insert into seat(sno, scode, status) values ('j12',100, 0);
+ insert into seat(sno, scode, status) values ('j13',100, 0);
+ insert into seat(sno, scode, status) values ('j14',100, 0);
+ insert into seat(sno, scode, status) values ('j15',100, 0);
+ 
+  insert into seat(sno, scode, status) values ('a1',150, 0);
+ insert into seat(sno, scode, status) values ('a2',150, 0);
+ insert into seat(sno, scode, status) values ('a3',150, 0);
+ insert into seat(sno, scode, status) values ('a4',150, 0);
+ insert into seat(sno, scode, status) values ('a5',150, 0);
+ insert into seat(sno, scode, status) values ('a6',150, 0);
+ insert into seat(sno, scode, status) values ('a7',150, 0);
+ insert into seat(sno, scode, status) values ('a8',150, 0);
+ insert into seat(sno, scode, status) values ('a9',150, 0);
+ insert into seat(sno, scode, status) values ('a10',150, 0);
+ insert into seat(sno, scode, status) values ('a11',150, 0);
+ insert into seat(sno, scode, status) values ('a12',150, 0);
+ insert into seat(sno, scode, status) values ('a13',150, 0);
+ insert into seat(sno, scode, status) values ('a14',150, 0);
+ insert into seat(sno, scode, status) values ('a15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('b1',150, 0);
+ insert into seat(sno, scode, status) values ('b2',150, 0);
+ insert into seat(sno, scode, status) values ('b3',150, 0);
+ insert into seat(sno, scode, status) values ('b4',150, 0);
+ insert into seat(sno, scode, status) values ('b5',150, 0);
+ insert into seat(sno, scode, status) values ('b6',150, 0);
+ insert into seat(sno, scode, status) values ('b7',150, 0);
+ insert into seat(sno, scode, status) values ('b8',150, 0);
+ insert into seat(sno, scode, status) values ('b9',150, 0);
+ insert into seat(sno, scode, status) values ('b10',150, 0);
+ insert into seat(sno, scode, status) values ('b11',150, 0);
+ insert into seat(sno, scode, status) values ('b12',150, 0);
+ insert into seat(sno, scode, status) values ('b13',150, 0);
+ insert into seat(sno, scode, status) values ('b14',150, 0);
+ insert into seat(sno, scode, status) values ('b15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('c1',150, 0);
+ insert into seat(sno, scode, status) values ('c2',150, 0);
+ insert into seat(sno, scode, status) values ('c3',150, 0);
+ insert into seat(sno, scode, status) values ('c4',150, 0);
+ insert into seat(sno, scode, status) values ('c5',150, 0);
+ insert into seat(sno, scode, status) values ('c6',150, 0);
+ insert into seat(sno, scode, status) values ('c7',150, 0);
+ insert into seat(sno, scode, status) values ('c8',150, 0);
+ insert into seat(sno, scode, status) values ('c9',150, 0);
+ insert into seat(sno, scode, status) values ('c10',150, 0);
+ insert into seat(sno, scode, status) values ('c11',150, 0);
+ insert into seat(sno, scode, status) values ('c12',150, 0);
+ insert into seat(sno, scode, status) values ('c13',150, 0);
+ insert into seat(sno, scode, status) values ('c14',150, 0);
+ insert into seat(sno, scode, status) values ('c15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('d1',150, 0);
+ insert into seat(sno, scode, status) values ('d2',150, 0);
+ insert into seat(sno, scode, status) values ('d3',150, 0);
+ insert into seat(sno, scode, status) values ('d4',150, 0);
+ insert into seat(sno, scode, status) values ('d5',150, 0);
+ insert into seat(sno, scode, status) values ('d6',150, 0);
+ insert into seat(sno, scode, status) values ('d7',150, 0);
+ insert into seat(sno, scode, status) values ('d8',150, 0);
+ insert into seat(sno, scode, status) values ('d9',150, 0);
+ insert into seat(sno, scode, status) values ('d10',150, 0);
+ insert into seat(sno, scode, status) values ('d11',150, 0);
+ insert into seat(sno, scode, status) values ('d12',150, 0);
+ insert into seat(sno, scode, status) values ('d13',150, 0);
+ insert into seat(sno, scode, status) values ('d14',150, 0);
+ insert into seat(sno, scode, status) values ('d15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('e1',150, 0);
+ insert into seat(sno, scode, status) values ('e2',150, 0);
+ insert into seat(sno, scode, status) values ('e3',150, 0);
+ insert into seat(sno, scode, status) values ('e4',150, 0);
+ insert into seat(sno, scode, status) values ('e5',150, 0);
+ insert into seat(sno, scode, status) values ('e6',150, 0);
+ insert into seat(sno, scode, status) values ('e7',150, 0);
+ insert into seat(sno, scode, status) values ('e8',150, 0);
+ insert into seat(sno, scode, status) values ('e9',150, 0);
+ insert into seat(sno, scode, status) values ('e10',150, 0);
+ insert into seat(sno, scode, status) values ('e11',150, 0);
+ insert into seat(sno, scode, status) values ('e12',150, 0);
+ insert into seat(sno, scode, status) values ('e13',150, 0);
+ insert into seat(sno, scode, status) values ('e14',150, 0);
+ insert into seat(sno, scode, status) values ('e15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('f1',150, 0);
+ insert into seat(sno, scode, status) values ('f2',150, 0);
+ insert into seat(sno, scode, status) values ('f3',150, 0);
+ insert into seat(sno, scode, status) values ('f4',150, 0);
+ insert into seat(sno, scode, status) values ('f5',150, 0);
+ insert into seat(sno, scode, status) values ('f6',150, 0);
+ insert into seat(sno, scode, status) values ('f7',150, 0);
+ insert into seat(sno, scode, status) values ('f8',150, 0);
+ insert into seat(sno, scode, status) values ('f9',150, 0);
+ insert into seat(sno, scode, status) values ('f10',150, 0);
+ insert into seat(sno, scode, status) values ('f11',150, 0);
+ insert into seat(sno, scode, status) values ('f12',150, 0);
+ insert into seat(sno, scode, status) values ('f13',150, 0);
+ insert into seat(sno, scode, status) values ('f14',150, 0);
+ insert into seat(sno, scode, status) values ('f15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('g1',150, 0);
+ insert into seat(sno, scode, status) values ('g2',150, 0);
+ insert into seat(sno, scode, status) values ('g3',150, 0);
+ insert into seat(sno, scode, status) values ('g4',150, 0);
+ insert into seat(sno, scode, status) values ('g5',150, 0);
+ insert into seat(sno, scode, status) values ('g6',150, 0);
+ insert into seat(sno, scode, status) values ('g7',150, 0);
+ insert into seat(sno, scode, status) values ('g8',150, 0);
+ insert into seat(sno, scode, status) values ('g9',150, 0);
+ insert into seat(sno, scode, status) values ('g10',150, 0);
+ insert into seat(sno, scode, status) values ('g11',150, 0);
+ insert into seat(sno, scode, status) values ('g12',150, 0);
+ insert into seat(sno, scode, status) values ('g13',150, 0);
+ insert into seat(sno, scode, status) values ('g14',150, 0);
+ insert into seat(sno, scode, status) values ('g15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('h1',150, 0);
+ insert into seat(sno, scode, status) values ('h2',150, 0);
+ insert into seat(sno, scode, status) values ('h3',150, 0);
+ insert into seat(sno, scode, status) values ('h4',150, 0);
+ insert into seat(sno, scode, status) values ('h5',150, 0);
+ insert into seat(sno, scode, status) values ('h6',150, 0);
+ insert into seat(sno, scode, status) values ('h7',150, 0);
+ insert into seat(sno, scode, status) values ('h8',150, 0);
+ insert into seat(sno, scode, status) values ('h9',150, 0);
+ insert into seat(sno, scode, status) values ('h10',150, 0);
+ insert into seat(sno, scode, status) values ('h11',150, 0);
+ insert into seat(sno, scode, status) values ('h12',150, 0);
+ insert into seat(sno, scode, status) values ('h13',150, 0);
+ insert into seat(sno, scode, status) values ('h14',150, 0);
+ insert into seat(sno, scode, status) values ('h15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('i1',150, 0);
+ insert into seat(sno, scode, status) values ('i2',150, 0);
+ insert into seat(sno, scode, status) values ('i3',150, 0);
+ insert into seat(sno, scode, status) values ('i4',150, 0);
+ insert into seat(sno, scode, status) values ('i5',150, 0);
+ insert into seat(sno, scode, status) values ('i6',150, 0);
+ insert into seat(sno, scode, status) values ('i7',150, 0);
+ insert into seat(sno, scode, status) values ('i8',150, 0);
+ insert into seat(sno, scode, status) values ('i9',150, 0);
+ insert into seat(sno, scode, status) values ('i10',150, 0);
+ insert into seat(sno, scode, status) values ('i11',150, 0);
+ insert into seat(sno, scode, status) values ('i12',150, 0);
+ insert into seat(sno, scode, status) values ('i13',150, 0);
+ insert into seat(sno, scode, status) values ('i14',150, 0);
+ insert into seat(sno, scode, status) values ('i15',150, 0);
+ 
+ insert into seat(sno, scode, status) values ('j1',150, 0);
+ insert into seat(sno, scode, status) values ('j2',150, 0);
+ insert into seat(sno, scode, status) values ('j3',150, 0);
+ insert into seat(sno, scode, status) values ('j4',150, 0);
+ insert into seat(sno, scode, status) values ('j5',150, 0);
+ insert into seat(sno, scode, status) values ('j6',150, 0);
+ insert into seat(sno, scode, status) values ('j7',150, 0);
+ insert into seat(sno, scode, status) values ('j8',150, 0);
+ insert into seat(sno, scode, status) values ('j9',150, 0);
+ insert into seat(sno, scode, status) values ('j10',150, 0);
+ insert into seat(sno, scode, status) values ('j11',150, 0);
+ insert into seat(sno, scode, status) values ('j12',150, 0);
+ insert into seat(sno, scode, status) values ('j13',150, 0);
+ insert into seat(sno, scode, status) values ('j14',150, 0);
+ insert into seat(sno, scode, status) values ('j15',150, 0);
+ 
+commit;
+
+
+drop sequence review_seq;
+create sequence review_seq start with 1 increment by 1 nocache;
+
+drop table review cascade constraints;
+create table review(
+	r_num number primary key, --관람평 번호
+	r_memberId varchar2(30) not null, --회원 아이디
+	r_movieName varchar2(100) not null, --영화 이름
+	r_star number, --관람평 평점
+	r_review varchar2(4000), --관람평 내용
+	r_date varchar2(100) --관람평 작성일
+);
+
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'한산: 용의 출현', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'스파이더맨: 노 웨이 홈 '펀버전'', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'선데이리그', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'블레이드 러너', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'컴백홈', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'놉', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'공조2: 인터내셔날', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'정직한 후보2', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'인생은 아름다워', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'육사오(6/45)', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'아바타 리마스터링', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'늑대사냥', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'헌트', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'탑건: 매버릭', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'극장판 검정고무신 : 즐거운 나의 집', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'hong', 
+	'극장판 짱구는 못말려: 수수께끼! 꽃피는 천하떡잎학교', 
+	'9',
+	'재밌게 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'abc12', 
+	'공조2: 인터내셔날', 
+	'10',
+	'킬링타임하기 좋은 영화!',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'lovemovie', 
+	'공조2: 인터내셔날', 
+	'10',
+	'배우들의 연기가 아주 좋습니다',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	's2s2', 
+	'한산: 용의 출현', 
+	'10',
+	'재밌어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	's2s2', 
+	'공조2: 인터내셔날', 
+	'6',
+	'킬링타임용',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	's2s2', 
+	'공조2: 인터내셔날', 
+	'10',
+	'배우들의 연기가 좋았어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'love', 
+	'공조2: 인터내셔날', 
+	'7',
+	'볼만합니다',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'song', 
+	'공조2: 인터내셔날', 
+	'1',
+	'별로에요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'god', 
+	'1917', 
+	'10',
+	'굿',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'lovemovie', 
+	'정직한 후보2', 
+	'10',
+	'처음부터 끝까지 웃겨요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	's2s2', 
+	'정직한 후보2', 
+	'10',
+	'넘 웃겼어요!! 시간 가는줄 모르고 봤어요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'rtrt', 
+	'정직한 후보2', 
+	'10',
+	'1편보다 더 재미있었어요 3편도 기대되네요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'dg', 
+	'정직한 후보2', 
+	'7',
+	'시사회로 봤는데 빵빵 터졌습니다ㅋㅋㅋ 킬링타임용으로 볼만해요',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'haha', 
+	'정직한 후보2', 
+	'10',
+	'전 진짜 재밌게 봤어요 1 봤을 때의 충격은 아니지만 15000원이 아깝지 않았어요 무엇보다 배우들 연기 보는 맛이 있네요 그리고 라미란 배우님이 코믹 연기를 진짜 잘하시네요 ㅋㅋㅋㅋ 3도 나왔으면 좋겠어요. 그냥 마음놓고 웃으면서 볼 수 있는 영화! 시대에 뒤떨어지지 않는 영화입니다ㅎㅎ',
+	sysdate
+);
+insert into review
+values(
+	review_seq.nextval, 
+	'ddd', 
+	'정직한 후보2', 
+	'4',
+	'전편보다는 덜 신선하고 전체적 이야기는 핵심 설정을 충분히 활용하지 못했음. 나름 재미가 있다고 할 수는 있으나 올해 코미디 하나만 볼 것이고 아직 [육사오]('22) 보지 못했으면 후자를 권유.',
+	sysdate
+);
+commit;
+
+col r_num for 99
+col r_memberId for a15
+col r_movieNum for a30
+col r_star for 99
+col r_review for a100
+col r_date for a10
+select * from review;
+
+-----------------------------
+drop sequence movie_seq;
+create sequence movie_seq start with 1 increment by 1 nocache;
+
+drop table movie cascade constraints;
+create table movie(
+   m_num number primary key, --번호
+   m_code varchar2(50), --코드
+   m_name varchar2(1000), --이름
+   m_genre varchar2(500), --장르
+   m_img varchar2(100), --포스터
+   m_grade varchar2(50), --시청등급
+   m_nation varchar2(50), --제작국가
+   m_star number, --평점
+   m_pd varchar2(50), --감독
+   m_actor varchar2(1000), --배우
+   m_runtime number, --러닝타임
+   m_per number, --예매율
+   m_date date, --개봉일
+   m_enddate date, --종영일
+   m_review varchar2(4000), --리뷰
+   m_info varchar2(4000), --정보
+   m_view number, --누적관객
+   m_like number default 0 --좋아요
+);
+
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR001', 
+   '한산: 용의 출현', 
+   '드라마, 액션', 
+   'movie_image_한산.jpg', 
+   '12', 
+   '한국', 
+   '9.2', 
+   '김한민', 
+   '박해일, 변요한, 안성기, 손현주, 김성규, 김성균, 김향기, 옥택연, 공명, 박지환, 조재윤', 
+   '129', 
+   '0.2',
+   '2022/07/27', 
+   '2022/12/27', 
+   '익히 아는 전투의 결과, 하지만 그곳까지 몰입하여 끌려가도록 하는 눈을 떼기 어려운 작품!!!', 
+   '나라의 운명을 바꿀 압도적 승리의 전투가 시작된다!
+1592년 4월, 조선은 임진왜란 발발 후 단 15일 만에 왜군에 한양을 빼앗기며 절체절명의 위기에 놓인다.
+조선을 단숨에 점령한 왜군은 명나라로 향하는 야망을 꿈꾸며 대규모 병역을 부산포로 집결시킨다.
+한편, 이순신 장군은 연이은 전쟁의 패배와 선조마저 의주로 파천하며 수세에 몰린 상황에서도
+조선을 구하기 위해 전술을 고민하며 출전을 준비한다.
+하지만 앞선 전투에서 손상을 입은 거북선의 출정이 어려워지고,
+거북선의 도면마저 왜군의 첩보에 의해 도난 당하게 되는데…
+왜군은 연승에 힘입어 그 우세로 한산도 앞바다로 향하고,
+이순신 장군은 조선의 운명을 가를 전투를 위해 필사의 전략을 준비한다.
+1592년 여름, 음력 7월 8일 한산도 앞바다,
+압도적인 승리가 필요한 조선의 운명을 건 지상 최고의 해전이 펼쳐진다.',
+   '7174965' ,
+   0
+);
+
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR002', 
+   '헌트', 
+   '드라마, 액션', 
+   'movie_image_헌트.jpg', 
+   '15', 
+   '한국', 
+   '9.1', 
+   '이정재', 
+   '이정재, 정우성, 전혜진, 허성태, 고윤정, 김종수, 정만식', 
+   '113', 
+   '3.5',
+   '2022/08/10', 
+   '2023/01/10', 
+   '반전있고 극적인 영화, 어디까지가 실화고 허구인지 궁금한 영화, 대단했어요!', 
+   '조직 내 숨어든 스파이를 색출하라!
+''사냥꾼''이 될 것인가, ''사냥감''이 될 것인가!
+망명을 신청한 북한 고위 관리를 통해 정보를 입수한
+안기부 해외팀 ''박평호''(이정재)와 국내팀 ''김정도''(정우성)는
+조직 내 숨어든 스파이 ''동림'' 색출 작전을 시작한다.
+스파이를 통해 일급 기밀사항들이 유출되어 위기를 맞게 되자
+날 선 대립과 경쟁 속, 해외팀과 국내팀은 상대를 용의선상에 올려두고
+조사에 박차를 가한다.
+찾아내지 못하면 스파이로 지목이 될 위기의 상황,
+서로를 향해 맹렬한 추적을 펼치던 ''박평호''와 ''김정도''는 감춰진 실체에 다가서게 되고,
+마침내 ''대한민국 1호 암살 작전''이라는 거대한 사건과 직면하게 되는데……
+하나의 목표, 두 개의 총구
+의심과 경계 속 두 남자의 신념을 건 작전이 시작된다',
+   '4160152' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR003', 
+   '육사오(6/45)', 
+   '코미디', 
+   'movie_image_육사오.jpg', 
+   '12', 
+   '한국', 
+   '8.7', 
+   '박규태', 
+   '고경표, 이이경, 음문석, 박세완, 곽동연, 이순원, 김민호', 
+   '113', 
+   '9.2',
+   '2022/08/24', 
+   '2023/01/24', 
+   '재미있고 유쾌한 영화', 
+   '바람을 타고 군사분계선을 넘어가버린 57억 1등 당첨 로또를 둘러싼 남북 군인들간의 코믹 접선극',
+   '1216458' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR004', 
+   '공조2: 인터내셔날', 
+   '액션, 코미디', 
+   'movie_image_공조2.jpg', 
+   '15', 
+   '한국', 
+   '8.9', 
+   '이석훈', 
+   '현빈, 유해진, 임윤아, 다니엘 헤니, 진선규', 
+   '129', 
+   '65.4',
+   '2022/09/07', 
+   '2023/02/07', 
+   '진짜 현빈 너무 멋있고 스토리도 연출도 1보다 좋았어요', 
+   '공조 이즈 백! 이번엔 삼각 공조다!
+남한으로 숨어든 글로벌 범죄 조직을 잡기 위해
+새로운 공조 수사에 투입된 북한 형사 ''림철령''(현빈).
+수사 중의 실수로 사이버수사대로 전출됐던 남한 형사 ''강진태''(유해진)는
+광수대 복귀를 위해 모두가 기피하는 ''철령''의 파트너를 자청한다.
+이렇게 다시 공조하게 된 ''철령''과 ''진태''!
+''철령''과 재회한 ''민영''(임윤아)의 마음도 불타오르는 가운데,
+''철령''과 ''진태''는 여전히 서로의 속내를 의심하면서도 나름 그럴싸한 공조 수사를 펼친다.
+드디어 범죄 조직 리더인 ''장명준''(진선규)의 은신처를 찾아내려는 찰나,
+미국에서 날아온 FBI 소속 ''잭''(다니엘 헤니)이 그들 앞에 나타나는데…!
+아직도 짠내 나는 남한 형사,
+여전한 엘리트 북한 형사,
+그리고 FBI 소속 해외파 형사까지!
+각자의 목적으로 뭉친 그들의 짜릿한 공조 수사가 시작된다!',
+   '11098' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA005', 
+   '탑건: 매버릭', 
+   '액션', 
+   'movie_image_탑건.jpg', 
+   '12', 
+   '미국', 
+   '9.7', 
+   '조셉 코신스키', 
+   ' 톰 크루즈, 마일즈 텔러, 제니퍼 코넬리, 존 햄, 에드 해리스, 글렌 포웰, 제이 앨리스, 그렉 타잔 데이비스', 
+   '130', 
+   '2.8',
+   '2022/06/22', 
+   '2022/11/22', 
+   '올해 최고의 영화네요', 
+   '한순간의 실수도 용납되지 않는 하늘 위, 가장 압도적인 비행이 시작된다!
+최고의 파일럿이자 전설적인 인물 매버릭은 자신이 졸업한 훈련학교 교관으로 발탁된다.
+그의 명성을 모르던 팀원들은 매버릭의 지시를 무시하지만
+실전을 방불케 하는 상공 훈련에서 눈으로 봐도 믿기 힘든 전설적인 조종 실력에 모두가 압도된다.
+매버릭의 지휘 아래 견고한 팀워크를 쌓아가던 팀원들에게 국경을 뛰어넘는 위험한 임무가 주어지자
+매버릭은 자신이 가르친 동료들과 함께 마지막이 될지 모를 하늘 위 비행에 나서는데…',
+   '8078606' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA006', 
+   '놉', 
+   '공포(호러), 미스터리', 
+   'movie_image_놉.jpg', 
+   '12', 
+   '미국', 
+   '8.1', 
+   '조던 필', 
+   '다니엘 칼루야, 키키 팰머, 스티븐 연, 마이클 윈콧, 브랜든 페레아', 
+   '130', 
+   '1',
+   '2022/08/17', 
+   '2023/01/17', 
+   '조던 필 기존과 다른 영화. 영화 특이하고 신비롭고 괜찮. 오에스티최고', 
+   '그것은 우리 위에 있다.
+거대하고, 주목받길 원하고, 미쳤다.
+나쁜 기적이라는 것도 있을까?',
+   '403308' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR007', 
+   '컴백홈', 
+   '드라마, 코미디', 
+   'movie_image_컴백홈.jpg', 
+   '12', 
+   '한국', 
+   '0', 
+   '이연우', 
+   '송새벽, 라미란, 이범수, 이경영, 이준혁, 오대환, 인교진, 김원해, 이중옥, 황재열, 이상원, 채현', 
+   '119', 
+   '0',
+   '2022/10/05', 
+   '2023/03/05', 
+   ' ', 
+   '“아버지가 네 앞으로 남겨놓은 게 있어”
+개그맨이 되겠다는 꿈 하나로 서울 상경을 결심한 ''기세''(송새벽)
+ 그러나 갑작스러운 프로그램 폐지 소식과 함께
+ 꿈도, 돈도, 집도 하루아침에 모든 것을 잃게 되고
+ 15년 만에 고향을 찾는다.
+ 고향에서 만난 충청도 최대 조직의 삼촌 ''강돈''(이범수)은
+ 현금 20억과 함께 ‘기세’에게 솔깃한 제안을 하고
+ ‘기세’는 다시 행복한 인생 역전을 꿈꾼다.
+ 한편, 오랜 기억 속 첫사랑 ''영심''(라미란)까지 만나게 되면서
+ ''기세''는 매일매일 예측불허한 사건들에 휘말리게 되는데…
+ 20억과 함께 찾아온 조폭 상속의 기회! 거기에 첫사랑까지?
+ 꼬일 대로 꼬인 인생, 조폭 두목을 상속받다?
+ 버라이어티한 ''기세''의 역전이 시작된다!',
+   '0' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR008', 
+   '정직한 후보2', 
+   '코미디', 
+   'movie_image_정직한후보2.jpg', 
+   '12', 
+   '한국', 
+   '8.2', 
+   '장유정', 
+   '라미란, 김무열, 윤경호, 서현우, 박진주, 윤두준', 
+   '107', 
+   '24.6',
+   '2022.09.28', 
+   '2023.02.28', 
+   '', 
+   '거짓말 못하는 ''진실의 주둥이'' 컴백! 이번엔 2명?!
+서울시장 선거에서 떨어지며 쫄딱 망한 백수가 된 ''주상숙''은
+우연히 바다에 빠진 한 청년을 구한 일이 뉴스를 타며
+고향에서 화려한 복귀의 기회를 잡는다.
+하지만 정직하면 할수록 바닥으로 곤두박질치는 지지율 앞에
+다시 뻥쟁이로 돌아간 그 순간,
+''주상숙''에게 운명처럼 찾아온 ''진실의 주둥이''!
+이번엔 ''주상숙''의 비서실장 ''박희철''까지 주둥이가 쌍으로 털리게 되는데...
+재미도 2배! 웃음도 2배!
+주둥이 대폭발 코미디가 돌아왔다!',
+   '32739' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR009', 
+   '인생은 아름다워', 
+   '뮤지컬', 
+   'movie_image_인생은아름다워.jpg', 
+   '12', 
+   '한국', 
+   '9.3', 
+   '최국희', 
+   '류승룡, 염정아, 박세완, 옹성우', 
+   '122', 
+   '20',
+   '2022.09.28', 
+   '2023.02.28', 
+   '', 
+   '내 생애 가장 빛나는 선물
+모든 순간이 노래가 된다!
+무뚝뚝한 남편 ''진봉''과 무심한 아들 딸을 위해 헌신하며 살아온 ''세연''은
+어느 날 자신에게 시간이 얼마 남지 않았다는 것을 알게 된다.
+한 치 앞도 알 수 없는 인생에 서글퍼진 ''세연''은 마지막 생일선물로
+문득 떠오른 자신의 첫사랑을 찾아 달라는 황당한 요구를 한다.
+막무가내로 우기는 아내의 고집에 어쩔 수 없이 여행길에 따라나선 ''진봉''은
+아무런 단서도 없이 이름 석 자만 가지고 무작정 전국 방방곡곡을 누빈다.
+시도 때도 없이 티격태격 다투던 두 사람은 가는 곳곳마다
+자신들의 찬란했던 지난날 소중한 기억을 하나 둘 떠올리는데...
+과연 ''세연''의 첫사랑은 어디에 있으며 그들의 여행은 무사히 마칠 수 있을까?',
+   '30778' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA010', 
+   '아바타 리마스터링', 
+   'SF, 액션, 어드벤처', 
+   'movie_image_아바타리마스터링.jpg', 
+   '12', 
+   '한국', 
+   '9.6', 
+   '제임스 카메론', 
+   '샘 워싱턴, 조 샐다나, 시고니 위버', 
+   '166', 
+   '6.3',
+   '2022.09.21', 
+   '2023.02.21', 
+   '', 
+   '가까운 미래, 지구는 에너지 고갈 문제를 해결하기 위해 머나먼 행성 판도라에서 대체 자원을 채굴하기 시작한다. 
+   하지만 판도라의 독성을 지닌 대기로 인해 자원 획득에 어려움을 겪게 된 인류는 판도라의 토착민 ‘나비(Na’vi)’의 외형에 인간의 의식을 주입, 
+   원격 조종이 가능한 새로운 생명체 ‘아바타’를 탄생시키는 프로그램을 개발한다. 
+   한편, 하반신이 마비된 전직 해병대원 ‘제이크 설리(샘 워딩튼)’는 ‘아바타 프로그램’에 참가할 것을 제안 받아 판도라에 위치한 인간 주둔 기지로 향한다. 
+   그 곳에서 자신의 ‘아바타’를 통해 자유롭게 걸을 수 있게 된 ‘제이크’는 자원 채굴을 막으려는 ‘나비(Na’vi)’의 무리에 침투하라는 임무를 부여 받는다. 
+   임무 수행 중 ‘나비(Na’vi)’의 여전사 ‘네이티리(조 샐다나)’를 만난 ‘제이크’는 그녀와 함께 다채로운 모험을 경험하면서 ‘네이티리’를 사랑하게 되고, 
+   ‘나비(Na’vi)’들과 하나가 되어간다. 하지만 머지 않아 전 우주의 운명을 결정 짓는 대규모 전투가 시작되면서 ‘제이크’는 최후의 시험대에 오르게 되는데….
+   행성 판도라와 지구의 피할 수 없는 전쟁! 이 모든 운명을 손에 쥔 제이크의 선택은?',
+   '112993' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR011', 
+   '늑대사냥', 
+   '범죄, 액션', 
+   'movie_image_늑대사냥.jpg', 
+   '청불', 
+   '한국', 
+   '6.9', 
+   '김홍선', 
+   '서인국, 장동윤, 성동일, 박호산, 정소민, 고창석, 장영남, 손종학, 홍지윤, 이성욱', 
+   '121', 
+   '4.4',
+   '2022.09.21', 
+   '2023.02.21', 
+   '', 
+   '인간 스스로 먹잇감이 되다
+동남아시아로 도피한 인터폴 수배자들을 이송할 움직이는 교도소 ''프론티어 타이탄''.
+극악무도한 이들과 베테랑 형사들이 필리핀 마닐라 항구에 모이고
+탈출을 꿈꾸는 종두(서인국), 한국으로 돌아가야만 하는 도일(장동윤)을 비롯해
+이들은 각자의 목적과 경계심을 품고 탑승한다.
+한국으로 향하던 중, 태평양 한 가운데에서 이들에게는
+지금까지 보지 못한 극한의 상황과 마주하게 되는데…
+태평양 한 가운데의 지옥, 누가 살아남을 것인가?',
+   '324808' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA012', 
+   '1917', 
+   '드라마, 전쟁', 
+   'movie_image_1917.jpg', 
+   '15', 
+   '미국', 
+   '6.9', 
+   '샘 멘데스', 
+   '조지 맥케이, 딘-찰스 채프먼, 콜린 퍼스, 베네딕트 컴버배치, 마크 스트롱, 앤드류 스캇, 리처드 매든, 애드리안 스카보로프', 
+   '119', 
+   '0.3',
+   '2020.02.19', 
+   '2020.07.19', 
+   '', 
+   '두 명의 병사, 하나의 미션!
+그들이 싸워야 할 것은 적이 아니라 시간이었다!
+제1차 세계대전이 한창인 1917년.
+독일군에 의해 모든 통신망이 파괴된 상황 속에서
+영국군 병사 ''스코필드''(조지 맥케이)와 ''블레이크''(딘-찰스 채프먼)에게 하나의 미션이 주어졌다.
+함정에 빠진 영국군 부대의 수장 ''매켄지'' 중령(베네딕트 컴버배치)에게
+''에린무어'' 장군(콜린 퍼스)의 공격 중지 명령을 전하는 것!
+둘은 1600명의 아군과 ''블레이크''의 형(리차드 매든)을 구하기 위해
+전쟁터 한복판을 가로지르며 사투를 이어가는데...',
+   '882362' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022JAP013', 
+   '극장판 짱구는 못말려: 수수께끼! 꽃피는 천하떡잎학교', 
+   '애니메이션 ', 
+   'movie_image_극장판짱구는못말려.jpg', 
+   '전체', 
+   '일본', 
+   '', 
+   '타카하시 와타루', 
+   '', 
+   '105', 
+   '30',
+   '2022.09.28', 
+   '2023.02.28', 
+   '', 
+   '짱구와 친구들, 명문학교에 입학하다?!
+명문 엘리트 양성학교에 체험 입학하게 된 짱구와 친구들!
+좋은 성적을 내서 학교에 정식 입학하고 싶은 철수와 장난만 치려는 짱구는 크게 싸우게 된다.
+그러던 중 학교에 도는 괴소문의 존재 ''흡덩귀''에게 철수가 엉덩이를 물린 채 발견된다.
+''흡덩귀''에게 엉덩이를 물리면 엘리트 학생도 모지리로 변하게 되는데….
+철수와 학생들을 구하기 위해 짱구와 떡잎마을 방범대 친구들은 탐정 동아리를 결성하고 수사를 시작한다!
+범인은 과연 누구? 짱구는 사건을 해결하고 철수와의 우정을 지킬 수 있을까?!',
+   '733' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR014', 
+   '극장판 검정고무신 : 즐거운 나의 집', 
+   '애니메이션 ', 
+   'movie_image_검정고무신.jpg', 
+   '전체', 
+   '한국', 
+   '', 
+   '송정율, 송요한', 
+   '박지윤, 오인실', 
+   '79', 
+   '1.2',
+   '2022.10.06', 
+   '2023.03.06', 
+   '', 
+   '''기철이 인생 최대 위기?!''
+짝사랑하는 여학생 숙이에게 잘 보이려다가
+ 수업료를 모두 써버린 기철이는 생애 첫 아르바이트(?)를 시작한다.
+ 뜻하지 않게 서울을 떠나게 된 기철이는 온갖 우여곡절에 휘말리게 되는데…
+ 과연 기철이는 무사히 집으로 돌아올 수 있을까?',
+   '733' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA015', 
+   '해리 포터와 마법사의 돌', 
+   '판타지, 가족, 모험, 액션', 
+   'movie_image_해리포터.jpg', 
+   '전체', 
+   '영국, 미국', 
+   '', 
+   '크리스 콜럼버스', 
+   '다니엘 래드클리프, 루퍼트 그린트, 엠마 왓슨, 로비 콜트레인, 리처드 해리스, 앨런 릭먼, 이안 하트, 톰 펠튼', 
+   '79', 
+   '0',
+   '2001.12.14', 
+   '2002.05.14', 
+   '', 
+   '해리 포터(다니엘 래드클리프 분)는 위압적인 버논 숙부(리챠드 그리피스 분)와 냉담한 이모 페투니아 (피오나 쇼 분), 
+욕심 많고 버릇없는 사촌 더즐리(해리 멜링 분) 밑에서 갖은 구박을 견디며 계단 밑 벽장에서 생활한다. 
+이모네 식구들 역시 해리와의 동거가 불편하기는 마찬가지. 
+이모 페투니아에겐 해리가 이상한(?) 언니 부부에 관한 기억을 떠올리게 만드는 달갑지 않은 존재다. 
+11살 생일이 며칠 앞으로 다가왔지만 한번도 생일파티를 치르거나 제대로 된 생일선물을 받아 본 적이 없는 해리로서는 
+특별히 신날 것도 기대 할 것도 없다. 11살 생일을 며칠 앞둔 어느 날 해리에게 초록색 잉크로 쓰여진 한 통의 편지가 배달된다. 
+그 편지의 내용은 다름 아닌 해리의 11살 생일을 맞이하여 전설적인“호그와트 마법학교”에서 보낸 입학초대장이었다. 
+그리고 해리의 생일을 축하하러 온 거인 해그리드는 해리가 모르고 있었던 해리의 진정한 정체를 알려주는데. 
+그것은 바로 해리가 굉장한 능력을 지닌 마법사라는 것!
+  해리는 해그리드의 지시대로 자신을 구박하던 이모네 집을 주저없이 떠나 호그와트행을 택한다. 
+런던의 킹스크로스 역에 있는 비밀의 9와 3/4 승장장에서 호그와트 특급열차를 탄 해리는 열차 안에서 
+같은 호그와트 마법학교 입학생인 헤르미온느 그레인저(엠마 왓슨 분)와 론 위즐리 (루퍼트 그린트 분)를 만나 친구가 된다. 
+이들과 함께 호그와트에 입학한 해리는, 놀라운 모험의 세계를 경험하며 갖가지 신기한 마법들을 배워 나간다. 
+또한 빗자루를 타고 공중을 날아다니며 경기하는 스릴 만점의 퀴디치 게임에서 스타로 탄생하게 되며, 
+용, 머리가 셋 달린 개, 유니콘, 켄타우루스, 히포그리프(말 몸에 독수리 머리와 날개를 가진 괴물)등 신비한 동물들과 마주치며 모험을 즐긴다. 
+그러던 어느 날 해리는 호그와트 지하실에 ''영원한 생을 가져다주는 마법사의 돌''이 비밀리에 보관되어 있다는 것을 알게되고, 
+해리의 부모님을 죽인 볼드모트가 그 돌을 노린다는 사실도 알게 된다. 
+볼드모트는 바로 해리를 죽이려다 실패하고 이마에 번개모양의 흉터를 남긴 장본인이다. 
+해리는 볼드모트로부터 마법의 돌과 호그와트 마법학교를 지키기 위해 필사의 노력을 하는데...',
+   '7238845' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA016', 
+   '(재상영)노트북', 
+   '멜로/로맨스, 드라마', 
+   'movie_image_노트북.jpg', 
+   '15', 
+   '미국', 
+   '', 
+   '닉 카사베츠', 
+   '라이언 고슬링, 레이첼 맥아담스, 제나 로우랜즈, 제임스 가너, 조안 알렌, 제임스 마스던, 헤더 월쿼스트', 
+   '156', 
+   '0',
+   '2004.11.26', 
+   '2005.04.26', 
+   '', 
+   '17살, ''노아''는 밝고 순수한 ''앨리''를 보고 첫눈에 반한다.
+ 빠른 속도로 서로에게 빠져드는 둘.
+ 그러나 이들 앞에 놓인 장벽에 막혀 이별하게 된다.
+ 24살, ''앨리''는 우연히 신문에서 ''노아''의 소식을 접하고
+ 잊을 수 없는 첫사랑 앞에서
+ 다시 한 번 선택의 기로에 서게 되는데…
+ 열일곱의 설렘, 스물넷의 아픈 기억, 그리고 마지막까지…
+ 한 사람을 지극히 사랑했으니 내 인생은 성공한 인생입니다',
+   '1459387' ,
+   77
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA017', 
+   '스파이더맨: 노 웨이 홈 ''펀버전''', 
+   '액션, 모험, SF', 
+   'movie_image_스파이더맨.jpg', 
+   '전체', 
+   '미국', 
+   '', 
+   '존 왓츠', 
+   '톰 홀랜드, 젠데이아 콜먼, 베네딕트 컴버배치, 존 파브로, 제이콥 배덜런 ,마리사 토메이, 알프리드 몰리나', 
+   '156', 
+   '0',
+   '2022.10.05', 
+   '2023.03.05', 
+   '', 
+   '''미스테리오''의 계략으로 세상에 정체가 탄로난 스파이더맨 ''피터 파커''는
+ 하루 아침에 평범한 일상을 잃게 된다.
+ 문제를 해결하기 위해 ''닥터 스트레인지''를 찾아가 도움을 청하지만
+ 뜻하지 않게 멀티버스가 열리면서 각기 다른 차원의 불청객들이 나타난다.
+ ''닥터 옥토퍼스''를 비롯해 스파이더맨에게 깊은 원한을 가진 숙적들의 강력한 공격에
+ ''피터 파커''는 사상 최악의 위기를 맞게 되는데…',
+   '0' ,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA018', 
+   '(재상영)타이타닉', 
+   '멜로/로맨스, 드라마', 
+   'movie_image_타이타닉.jpg', 
+   '15', 
+   '미국', 
+   '', 
+   '제임스 카메론', 
+   '레오나르도 디카프리오, 케이트 윈슬렛, 빌리 제인, 캐시 베이츠, 프란시스 피셔, 버나드 힐, 대니 누치, 글로리아 스튜어트', 
+   '194', 
+   '0',
+   '1998.02.20', 
+   '1998.07.20', 
+   '', 
+   '''내 인생의 가장 큰 행운은 도박에서 딴 티켓으로 당신을 만난 거야''
+단 하나의 운명, 단 한 번의 사랑,
+영원으로 기억될 세기의 러브 스토리
+우연한 기회로 티켓을 구해 타이타닉호에 올라탄 자유로운 영혼을 가진 화가 잭(레오나르도 디카프리오)은
+ 막강한 재력의 약혼자와 함께 1등실에 승선한 로즈(케이트 윈슬렛)에게 한 눈에 반한다.
+ 진실한 사랑을 꿈꾸던 로즈 또한 생애 처음 황홀한 감정에 휩싸이고, 둘은 운명 같은 사랑에 빠지는데…',
+   '7300000' ,
+   55
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR019', 
+   '늑대소년', 
+   '멜로/로맨스, 드라마, 판타지', 
+   'movie_image_늑대소년.jpg', 
+   '15', 
+   '한국', 
+   '', 
+   '조성희', 
+   '송중기, 박보영, 장영남, 유연석, 김향기, 이영란, 유승목, 서동수', 
+   '125', 
+   '0',
+   '2012.10.31', 
+   '2013.03.31', 
+   '', 
+   '체온 46도, 혈액형 판독불가…
+세상에 없어야 할 위험한 존재 늑대소년, 운명적 사랑에 빠지다!
+요양 차 가족들과 한적한 마을로 이사 간 소녀는 어둠 속에 몸을 숨긴 의문의 늑대소년을 발견한다. 
+야생의 눈빛으로 사람 같지 않은 행동을 보이는 소년에게 왠지 마음이 쓰이는 소녀는 먹을 것을 보고 기다리는 법, 
+옷 입는 법, 글을 읽고 쓰는 법 등 소년에게 세상에서 살아가는 방법들을 하나씩 가르쳐준다. 
+태어나 처음으로 자신을 향해 손을 내밀어준 소녀에게 애틋한 감정이 싹트는 소년.
+ 그러던 어느 날 예기치 못한 위기 속에 소년의 숨겨져 있던 위험한 본성이 드러나고, 
+소년은 순식간에 마을 사람들에게 두려움과 공포의 대상이 되어버리는데……',
+   '2438695',
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA020', 
+   '(재상영)겨울왕국', 
+   '애니메이션, 모험, 코미디, 가족, 판타지, 뮤지컬', 
+   'movie_image_겨울왕국.jpg', 
+   '전체', 
+   '미국', 
+   '', 
+   '크리스 벅, 제니퍼 리', 
+   '크리스틴 벨, 이디나 멘젤, 조시 게드, 조나단 그로프, 산티노 폰타나, 알란 터딕, 시아란 힌즈, 크리스 윌리엄스', 
+   '108', 
+   '0',
+   '2014.01.16', 
+   '2014.06.16', 
+   '', 
+   '얼어붙은 세상을 녹일 자매가 온다!
+서로가 최고의 친구였던 자매 ''엘사''와 ''안나''. 하지만 언니 ''엘사''에게는 하나뿐인 동생에게조차 말 못할 비밀이 있다. 
+모든 것을 얼려버리는 신비로운 힘이 바로 그것. ''엘사''는 통제할 수 없는 자신의 힘이 두려워 왕국을 떠나고, 
+얼어버린 왕국의 저주를 풀기 위해 ''안나''는 언니를 찾아 환상적인 여정을 떠나는데……',
+   '2438695',
+   34
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR021', 
+   '선데이리그', 
+   '코미디', 
+   'movie_image_선데이리그.jpg', 
+   '전체', 
+   '한국', 
+   '', 
+   '이성일', 
+   '이성욱, 이순원, 오치운, 강영구, 심우성, 김그림, 차성제, 유인혁', 
+   '108', 
+   '0',
+   '2022.10.05', 
+   '2023.03.05', 
+   '', 
+   '한때는 국가대표급 유망주, 지금은 그저 동네 축구교실 코치인 준일.
+ 꼰대 마인드와 게으른 코칭으로 해고 직전인데, 곧 이혼까지 당할 기세다.
+ 그런 준일에게 정규직 전환을 대가로 거부할 수 없는 미션이 주어지는데!
+ 바로 오합지졸 ''철수축구단''의 아마추어 풋살대회 본.선.진.출.
+ 준일은 초단기간 안에 ''풋''과 ''살''을 1도 모르는 김사장, 최씨, 박씨를
+ G성과 SON 급으로 변신시켜야 하는데… 오 마이 풋살!
+ 축.덕. 어른이들의 꿈줄과 밥줄을 건
+ ''선데이리그''가 시작된다!',
+   '0',
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA022', 
+   '블레이드 러너', 
+   'SF, 액션, 드라마', 
+   'movie_image_블레이드러너.jpg', 
+   '15', 
+   '미국', 
+   '', 
+   '리들리 스콧', 
+   '해리슨 포드, 룻거 하우어, 숀영, 에드워드 제임스 올모스, M.에멧 월쉬, 대릴 한나, 윌리엄 샌더슨, 브라이언 제임스', 
+   '118', 
+   '0',
+   '2022.10.05', 
+   '2023.03.05', 
+   '', 
+   '핵전쟁 이후 혼돈으로 무질서로 휩싸인 2019년,
+ 복제인간 ''로이''를 포함한 ''넥서스 6''이
+ 오프월드에서 반란을 일으킨 후 지구로 잠입한다.
+ 은퇴한 블레이드 러너였던 ''데커드''(해리슨 포드)는
+ 지구에 잠입한 복제 인간들을 찾는 임무와 함께 강제로 복직하게 되고,
+ 탐문 수사를 위해 찾아간 넥서스 6 제조사인 타이렐 사에서
+ 자신이 복제 인간임을 모르는 ''레이첼''(숀 영)을 마주하게 된다.
+ 한편, 증거의 꼬리를 잡아 수사하던 도중
+ ''데커드''는 ''레이첼'' 덕분에 위기 속에서 목숨을 구원받게 되고,
+ 복제 인간과의 마지막 전투를 앞두게 된다.',
+   '0',
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA023', 
+   '이터널 선샤인', 
+   '멜로/로맨스, 드라마, SF', 
+   'movie_image_이터널선샤인.jpg', 
+   '15', 
+   '미국', 
+   '', 
+   '미셸 공드리', 
+   '짐 캐리, 케이트 윈슬렛, 커스틴 던스트, 마크 러팔로, 일라이저 우드, 톰 윌킨스', 
+   '107', 
+   '0',
+   '2005.11.10', 
+   '2006.04.10', 
+   '', 
+   '사랑은 그렇게 다시 기억된다..
+조엘은 아픈 기억만을 지워준다는 라쿠나사를 찾아가 헤어진 연인 클레멘타인의 기억을 지우기로 결심한다. 
+기억이 사라져 갈수록 조엘은 사랑이 시작되던 순간, 행복한 기억들, 가슴 속에 각인된 추억들을 지우기 싫어지기만 하는데... 
+당신을 지우면 이 아픔도 사라질까요? 사랑은 그렇게 다시 기억된다.',
+   '4029584',
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA024', 
+   '로미오와 줄리엣', 
+   '드라마, 멜로/로맨스', 
+   'movie_image_로미오와줄리엣.jpg', 
+   '15', 
+   '미국', 
+   '', 
+   '바즈 루어만', 
+   '레오나르도 디카프리오, 클레어 데인즈, 존 레귀자모, 자크 오스, 제이미 케네디 , 대쉬 미혹, 빈센트 라레스카, 칼로스 마틴 만조 오타로라', 
+   '120', 
+   '0',
+   '1996.12.28', 
+   '1997.05.28', 
+   '', 
+   '누구도 따라 할 수 없는 사랑… 이 사랑에 홀릭하다!
+정열의 도시 베로나, 태양의 열기가 가득한 이 도시에서 두 가문 몬태규가와 캐플릿가는 끝없이 혈투를 벌인다. 
+어느 날 캐플릿가의 파티에 몰래 참석한 몬태규가의 로미오는, 아름다운 줄리엣을 만나 첫눈에 사랑에 빠진다. 
+로미오와 줄리엣은 부모 몰래 결혼식을 올리고, 이 결혼이 두 가문의 화해를 가져다 줄 거라 믿은 신부는 그들을 축복한다. 
+그러나 싸움에 휘말려 줄리엣의 사촌 티볼트를 죽이게 된 로미오가 베로나에서 추방당하게 되고, 
+줄리엣은 그녀를 좋은 가문에 강제로 결혼시키려는 부모를 피해 수면제를 먹고 죽은 것처럼 가장하는데..',
+   '2024584',
+   0
+);
+
+insert into movie values(
+   movie_seq.nextval, 
+   '2022KOR025', 
+   '크리스마스 캐럴', 
+   '드라마, 액션', 
+   'movie_image_크리스마스캐럴.jpg', 
+   '청불', 
+   '한국', 
+   '', 
+   '김성수', 
+   '박진영, 김영민, 김동휘, 송건희, 허동원', 
+   '130', 
+   '0',
+   '2022.12.07', 
+   '2023.06.07',
+   '', 
+   '폭력이 만들어낸 괴물!
+복수를 위한 잔혹한 싸움이 시작된다!
+크리스마스 아침, 쌍둥이 동생 ''월우''가 죽은 채로 발견된다.
+단순 사고로 사건이 종결되자, 형 ''일우''는 복수를 결심하고
+''월우''와의 마지막 통화에서 들렸던 목소리를 찾아 스스로 소년원에 들어간다.
+그곳에서 동생을 돌봐주던 상담교사 ''조순우''의 도움을 받으며
+비밀을 숨기고 있는 ''손환''과 자신을 없애려는 ''문자훈'',
+그리고 무자비한 힘으로 군림하는 교정교사 ''한희상''까지
+폭력에 맞서 목숨을 건 싸움을 계획하는데…',
+   0,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022USA026', 
+   '프레이 포 더 데블', 
+   '공포(호러), 미스터리', 
+   'movie_image_프레이포더데블.jpg', 
+   '15', 
+   '미국', 
+   '', 
+   '다니엘 스탬', 
+   '재클린 바이어스, 콜린 살몬, 버지니아 매드슨, 크리스티안 나바로', 
+   '93', 
+   '0',
+   '2022.12.07', 
+   '2023.06.07',
+   '', 
+   '과거의 트라우마로
+여전히 고통 받고 있는 수녀 앤
+구마 의식 학교에서 특별한 재능을
+인정받으며 남성 사제에게만 허용되었던
+구마 의식 훈련을 받게 되고
+그곳에서 만난 환자들을
+통해 어릴 적부터 그녀를 괴롭혀 왔던
+존재의 실체와 만나게 되는데...
+그것은 아직도 나를 원하고 있다!',
+   0,
+   0
+);
+insert into movie values(
+   movie_seq.nextval, 
+   '2022FRA027', 
+   '스페이스 키드: 우주에서 살아남기', 
+   '애니메이션, 어드벤처', 
+   'movie_image_스페이스키드.jpg', 
+   '전체', 
+   '프랑스', 
+   '', 
+   '에릭 토스티', 
+   '', 
+   '90', 
+   '0',
+   '2022.12.07', 
+   '2023.06.07',
+   '', 
+   '“난 우주 탐험가야.새로운 걸 발견하면 기록하는 게 내 임무라고!”
+평화로운 우주 여행을 마치고 지구로 돌아가던 ''윌리''는 소행성 충돌로 미지의 행성에 불시착한다.
+호기심 많은 ''윌리''는 구조대가 올 때까지 만능 로봇 ''버크''와 사랑스러운 새 친구 ''플래시''와 함께 신나는 탐험을 시작하는데…
+과연, ''윌리''와 친구들은 생존 미션에 성공해 가족들을 다시 만날 수 있을까?',
+   0,
+   0
+);
+
+
+col m_num for 99
+col m_code for a10
+col m_name for a5
+col m_genre for a5
+col m_img for a10
+col m_grade for 99
+col m_nation for a5
+col m_star for 99
+col m_pd for a5
+col m_actor for a20
+col m_runtime for 99
+col m_per for 99
+col m_date for a10
+col m_enddate for a10
+col m_review for a10
+col m_info for a20
+col m_view for 99
+col m_like for 99
+
+select * from movie;
+
+
+commit;
+--------------------
+
+
+
+
+--member6
+
+drop sequence m_seq;
+
+create sequence m_seq   
+increment by 1
+start with 1
+minvalue 1
+maxvalue 10000
+nocache;
+
+drop table member cascade constraints;
+create table member(
+	no number primary key,
+	name varchar2(12) not null,
+	id varchar2(12) not null,
+	pw varchar2(12) not null,
+	repw varchar2(12) not null,
+	ph0 varchar2(10),
+	ph1 varchar2(10),
+	ph2 varchar2(10),
+	email varchar2(20),
+	point number default 0
+);
+
+insert into member values(0, '관리자', 'admin', '0000', '0000', '010', '1234', '1234', 'admin@naver.com',0);
+insert into member values(m_seq.nextval, '사용자', 'abc12', '1212', '1212', '010', '1212', '1212', 'abc12@naver.com',0);
+
+--채팅용 jh
+insert into member values(m_seq.nextval, '홍길동', 'hong', '0000', '0000', '010', '1111', '1111', 'aaa@naver.com',0);
+insert into member values(m_seq.nextval, '이지희', 'lee1', '0000', '0000', '010', '2222', '2222', 'bbb@naver.com',0);
+insert into member values(m_seq.nextval, '박지현', 'park', '0000', '0000', '010', '3333', '3333', 'ccc@naver.com',0);
+insert into member values(m_seq.nextval, '선가영', 'sun', '0000', '0000', '010', '4444', '4444', 'ddd@naver.com',0);
+insert into member values(m_seq.nextval, '이시현', 'lee2', '0000', '0000', '010', '5555', '5555', 'eee@naver.com',0);
+insert into member values(m_seq.nextval, '정중앙', 'jung', '0000', '0000', '010', '6666', '6666', 'fff@naver.com',0);
+insert into member values(m_seq.nextval, '김철수', 'kim', '0000', '0000', '010', '777', '777', 'ggg@naver.com',0);
+
+
+commit;
+
+col no for 99;
+col name for a8;
+col id for a7;
+col pw for a6;
+col repw for a6;
+col ph0 for a6;
+col ph1 for a6;
+col ph2 for a6;
+col email for a15;
+
+select * from member;
+
+
+
+
+--탈퇴 회원 테이블7
+drop table d_member;
+create table d_member(
+	no number primary key,
+	name varchar2(12) not null,
+	id varchar2(12) not null,
+	pw varchar2(12) not null,
+	repw varchar2(12) not null,
+	ph0 varchar2(10),
+	ph1 varchar2(10),
+	ph2 varchar2(10),
+	email varchar2(20),
+	point number default 0,
+	time varchar2(30)
+);
+
+
+
+
+--store9
+
+drop table store cascade constraints;
+create table store(
+   s_num number primary key,
+   s_code varchar2(20),
+   s_image varchar2(30),
+   s_name varchar2(30) not null,
+   s_price varchar2(10) not null,
+   s_stock varchar2(10) not null,
+   s_content varchar2(80),
+   s_point varchar2(10) default 0
+);
+
+alter table s_orders modify o_name varchar2(30);
+
+drop sequence s_seq;
+create sequence s_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 1000
+nocache;
+
+insert into store values(s_seq.nextval, '1', 'ticket1.jpg' ,'일반 관람권', 10000, 1000, '2D관에서 관람 가능한 영화관람권입니다.',1000);
+insert into store values(s_seq.nextval, '1', 'ticket2.jpg' ,'골드 관람권', 14000, 1000, 'screenX관에서 관람 가능한 영화관람권입니다.',1400);
+insert into store values(s_seq.nextval, '1', 'ticket3.jpg' ,'프리미엄 관람권', 16000, 1000, '4DX 혹은 리클라이너관에서 관람 가능한 영화관람권입니다.',1600);
+
+insert into store values(s_seq.nextval, '2', 'popcorn1.jpg' ,'기본 팝콘', 5000, 1000, '기본 맛의 팝콘입니다.',500);
+insert into store values(s_seq.nextval, '2', 'popcorn2.jpg' ,'달콤 팝콘', 6000, 1000, '카라멜을 입힌 달콤한 맛의 팝콘입니다.',600);
+insert into store values(s_seq.nextval, '2', 'popcorn3.jpg' ,'치즈 팝콘', 6000, 1000, '짭잘한 치즈 맛이 나는 팝콘입니다.',600);
+
+insert into store values(s_seq.nextval, '3', 'beverage1.jpg' ,'탄산 음료', 2000, 1000, '청량하고 시원한 탄산 음료입니다.',200);
+insert into store values(s_seq.nextval, '3', 'beverage2.jpg' ,'따뜻한 아메리카노', 3500, 1000, '현대인의 필수품 따뜻한 아메리카노입니다.',350);
+insert into store values(s_seq.nextval, '3', 'beverage3.jpg' ,'아이스 아메리카노', 4000, 1000, '시원한 아이스 아메리카노입니다.',400);
+
+insert into store values(s_seq.nextval, '4', 'snak1.jpg' ,'나쵸', 4500, 1000, '바삭 바삭 나쵸!',450);
+insert into store values(s_seq.nextval, '4', 'snak2.jpg' ,'핫도그', 4000, 1000, '기본 핫도그',400);
+insert into store values(s_seq.nextval, '4', 'snak3.jpg' ,'오징어', 4500, 1000, '손이 가는 오징어!',450);
+
+commit;
+
+--code
+--1 : 영화관람권
+--2 : 팝콘
+--3 : 음료
+--4 : 간식
+
+--
+--s_orders;
+drop table s_orders cascade constraints;
+create table s_orders(
+   o_num number,
+   s_num number,
+   o_id varchar2(15),
+   o_name varchar2(30),
+   o_order number, --주문 수량
+   o_price number,
+   o_total_price number,
+   o_total_point number default 0
+);
+drop sequence o_seq;
+create sequence o_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 1000
+nocache;
+
+commit;
+
+
+--영화관람권 테이블
+drop table myticket cascade constraints;
+create table myticket(
+	t_id varchar2(20),
+	t_spec varchar2(30),
+	t_order number
+);
+
+col t_id for a8
+col t_spec for a15
+col t_order for 999
+select * from myticket;
+commit;
+
+--에러나서 데이터 크기 변경할게요 이렇게만 sql plus에 써주시면 돼요
+alter table s_orders modify o_name varchar2(30);
+--indemovie12
+
+
+drop table indeMovie cascade constraints;
+create table indeMovie( --총 19
+num number primary key,
+kind varchar2(20), --단편, 장편, 개막작
+title varchar2(30), --영화제목
+img varchar2(60), --영화 메인 사진
+director varchar2(50), --감독
+year varchar2(5),
+genre varchar2(20),
+color varchar2(10) default 'color',
+type varchar2(20) default 'DCP',
+runtime varchar2(50),
+premiere varchar2(20) default '', --world premier 유무
+synopsis varchar2(500),
+intention varchar2(500),
+fest_awards varchar2(300), --수상경력
+direc_img1 varchar2(30), --감독1
+direc_info1 varchar2(200), --감독1 경력
+direc_img2 varchar2(30), --감독2
+direc_info2 varchar2(200), --감독2 경력
+note varchar2(2000),
+video varchar2(100),
+likes number default 0
+);
+
+drop sequence inde_seq;
+create sequence inde_seq
+increment by 1
+start with 1
+nocache
+;
+
+insert into indeMovie values(
+inde_seq.nextval, 
+'단편',
+'내 코가 석재',
+'내코가 석재.jpg', 
+'김보람', 
+'2021' , 
+'Fiction', 
+'Color', 
+'DCP', 
+'19min 44sec (E)', 
+'', 
+'비대면 진료가 일상이 된 근미래, 만성 비염 환자 보형은 이비인후과 화상 진료 후 아주 특별한 치료법을 배달받는다.', 
+'10년째 극심한 만성 비염을 앓고 있다. 남의 코를 떼어다 숨을 쉬고 싶다.', 
+'2021 제19회 광화문국제단편영화제 심사위원 특별상
+2021 제41회 하와이 국제 영화제
+2021 제26회 호주 캔버라 단편영화제
+2021 제 8회 춘천SF영화제
+2021 제25회 몬트리올 판타지아 영화제
+2021 제25회 부천 국제 판타스틱 영화제 관객상',
+'김보람.jpg',
+'2018 피의 연대기 2020 자매들의 밤', 
+'',
+'',
+'한쪽 벽에 가득 쌓인 두루마리 휴지와 사용한 휴지 뭉치에 둘러싸여 있는 주인공 보형은 만성 비염 환자이다. 빨래 건조대 가득 널려 있는 마스크와 공기 정화 식물이 가득한 거실에서 당연하다는 듯 보형은 병원의 비대면 진료를 위해 마우스를 열심히 클릭한다. 1시간 15분이 걸려 온라인으로 진료와 처방을 받는 모습은 비대면 시대인 요즘 낯설게 느껴지지 않는다. 제대로 숨 한 번을 못 쉬어 보며 10년을 살아가던 보형은 어느 날 가뭄의 단비처럼 코 하나를 배송받는다. 꽉 막힌 코 때문에 잠도 제대로 못 자는 날이 많았던 보형은 그 코로 실컷 숨을 쉬며 행복한 시간을 보낸다. 하지만 자신의 코가 아니라는 청천벽력 같은 소리를 듣고 보형은 원래 코의 주인인 제갈석재를 피해 달아날 준비를 한다.
+<피의 연대기>와 <자매들의 밤>에 이어, 다양한 장르를 넘나드는 김보람 감독의 또 하나의 색다른 장르영화 <내 코가 석재>는 많은 비염 환자들에게 공감을 줄 것이다. 영화의 전체적인 색감을 콧물 같은 누런 톤으로 맞춘 감독의 재치와 제목을 통해 결말까지 알려 주면서 시작하는 과감함을 엿볼 수 있는 작품이다. 매번 일상과 가까운 소재를 접목한 작품을 보여 주는 김보람 감독의 차기작 또한 어떤 이야기일지 기대가 된다.',
+'https://tv.naver.com/embed/23409336',0);
+
+
+insert into indeMovie values(
+inde_seq.nextval, 
+'단편',
+'여기, 나의 정원',
+'여기, 나의 정원.jpg', 
+'김지곤', 
+'2021' , 
+'Documentary', 
+'Color', 
+'DCP', 
+'21min 18sec (K)', 
+'World Premiere', 
+'창가로 보이던 영주아파트를 찾아가 그곳의 이야기를 들어 본다. 바라만 보고, 상상만 하던 공간 속의 이야기를 들으니 내가 모르는 것들이 많다.', 
+'부산에서 가장 오래된 아파트인 영주아파트를 소재로 영상 제작을 의뢰받고, 우리 동네에 있는 영주아파트를 처음 방문하고 그곳의 식물들에게 눈길이 갔다.', 
+'World Premiere',
+'김지곤.jpg',
+'2015 할매-서랍
+2018 리틀보이 12725
+2021 철선', 
+'',
+'',
+'고양이발톱, 접시꽃, 분꽃, 매실, 모과, 가지, 오이, 깻잎, 고추. <여기, 나의 정원>엔 야생화부터 계절 작물까지 식물이 한가득이다. 그중엔 아직 모종인 것도 있고, 보기 좋게 여문 것도 있지만, 모두 예쁜 빛을 낸다는 사실 하나만큼은 동일하다. 이렇듯 눈 닿는 곳마다 싱그러운 식물이 가득한 이곳은 부산에서 가장 오래된 아파트인 영주아파트다. 영화의 오프닝, 도시의 전경을 천천히 비추는 카메라에 낡은 외관의 아파트 단지 하나가 묵직하게 걸린다. 다른 아파트 사이에 있을 땐 똑같이 회색빛으로 보였는데, 카메라를 가까이 들이대니 무지갯빛이다. 식물의 색깔들만큼 빛나는 건 부지런히 화단과 텃밭을 가꾸는 아파트 주민들의 손길이다. 이것저것 궁금해하는 감독에게 하나하나 설명해 주는 목소리도 정답다. 게다가 이야기를 들어 보면 그 역사는 더 엄청나다. 여기서 산 세월만 합쳐도 40년이라는 노부부가 가꾸는 화단, 스무 살이 훌쩍 넘은 텃밭, 그 옛날 온통 쓰레기 천지였던 땅을 전부 매만져 밭으로 바꿨다는 이야기까지. 여기에, 자기는 저 건너편에 살고 있다며 능청스럽게 말을 거는 감독의 목소리까지 더해지면서 명랑하고 따뜻한 순간들이 생겨난다. 소중한 추억부터 이웃 사이에 지금까지 이어지고 있는 함께 나누는 삶까지, 영화에 담긴 이야기들은 식물들만큼 곱고 귀하다. 그런데 그 안에는 분명 쓸쓸함도 있다. 이제는 젊은 사람들이 오지 않는다는 누군가의 말처럼, 오래된 아파트는 이제 끝을 바라보고 있는지도 모른다. 그런 중에도 계속 꽃이 피어난다.',
+'https://tv.naver.com/embed/23409392',0);
+
+insert into indeMovie values(
+inde_seq.nextval, 
+'개막작',
+'스프린터',
+'스프린터.jpg', 
+'최승연', 
+'2021' , 
+'Fiction', 
+'Color', 
+'DCP', 
+'86min 34sec (E)', 
+'World Premiere', 
+'한때 대한민국에서 가장 빠른 100미터 선수였던 현수.
+아직 고등학생이지만 점점 기록이 오르고 있는 단거리 선수 준서.
+현재 대한민국에서 가장 빠른 단거리 선수 정호.
+세 선수는 각자의 이유로 국가대표 선발전을 준비한다.', 
+'잘하는 일을 포기하는 상황에 대한 이야기입니다. 스포츠영화라는 장르의 특성인 경쟁의식을 담고 싶었고, 각 세대별로 그 방식은 다를 것이라고 생각했습니다.', 
+'World Premiere',
+'최승연.jpg',
+'2016 수색역', 
+'',
+'',
+'',
+'https://tv.naver.com/embed/23601151',0);
+
+insert into indeMovie values(
+inde_seq.nextval, 
+'단편',
+'균열',
+'균열.jpg', 
+'배기성', 
+'2021' , 
+'Fiction', 
+'B/W', 
+'DCP', 
+'19min 41sec (E)', 
+'', 
+'재난, 그 이후…… 피해자가 가해자가 되고, 그 피해자는 또 다른 가해자가 된다.', 
+'잘하는 일을 포기하는 상황에 대한 이야기입니다. 스포츠영화라는 장르의 특성인 경쟁의식을 담고 싶었고, 각 세대별로 그 방식은 다를 것이라고 생각했습니다.', 
+'2021 제2회 합천수려한영화제',
+'배기성.jpg',
+'2011 상수
+2016 그들처럼', 
+'',
+'',
+'재난은 갑자기 닥친다. 천재지변이든 인재든 재난을 입은 당사자는 피해자다. 그런데 그 피해자 때문에 피해를 입은 사람이 존재한다. 이럴 때 두 사람의 고통은 공평할까, 아닐까. 주인공 박씨는 딱 봐도 가진 게 없다. 하지만 찬찬히 살펴보면 가진 것들이 있다. 공사장 막노동 현장에서 돌아와 피곤한 몸 누일 텐트도 있고, 텅 빈 배를 채울 식량을 끓여 먹을 도구도 있다. 돈 벌러 현장에 나갈 때 이동 수단인 자전거도 있다. 무엇보다 일할 수 있는 몸뚱이와, 현장에서 마주치는 동료들도 있다. 함께 커피를 마시는 것도, 말을 나누는 것도 거부하지만 말이다. 그런데 그것들이 없어지기 시작한다. 산다는 건 참 이상하다. 안 좋은 일은 한꺼번에 일어난다. 박씨는 허둥지둥 사라진 것들을 찾아다니지만, 한번 가 버린 것은 돌아오지 않는다. 어떨 땐 그렇게 빼앗아 가고도 성이 안 차는지 뒤통수 갈기듯 뭔가를 더 후려갈기기도 한다. <균열>은 재난 이후 피해자가 가해자가 되고 그 피해자는 또 다른 가해자가 되는 현실을 다룬다. 흑백 화면 속에 펼쳐지는, 내 주변 일상과도 같은 다큐적 화면 속 주인공은 나를 이렇게 만든 집주인에게 계속 전화를 걸고, 재난의 피해자가 된 집주인은 “언제까지 균열에 국민을 방치할 거냐”며 1인 시위 중이다. 그리고 영화의 끝. 재난이 파고들어 간 균열의 틈은 결국 파국으로 치닫는다. 절망적인 엔딩이다. 하지만 나는 이 영화에서 희망을 본다. ‘경남청년문화창업협동조합 제작, 경남 시민단체 영화로운 공동제작’이라는 크레디트는 이 영화가 서울과 경남에서 활동하는 영화인들의 협업의 결과라는 사실을 읽을 수 있게 해 준다.',
+'https://tv.naver.com/embed/23401333',0);
+
+insert into indeMovie values(
+inde_seq.nextval, 
+'단편',
+'농몽',
+'농몽.jpg', 
+'권순현', 
+'2021' , 
+'Documentary', 
+'Color', 
+'DCP', 
+'38min 35sec (E)', 
+'', 
+'내게 촛불은 매혹이었다. 세상에 마침내 종말이 찾아온다면 이런 모습이지 않을까 상상했다. 광장의 사람들은 웃고 울고 소리쳤다. 내 손안의 작은 열기 덕분에 종말 이후 찾아올 새로운 세상을 상상할 수 있었다. 일렁이는 불꽃에 매혹당하여, 나는 촛불을 들 여유가 없는 사람들을, 광장을 갖지 못한 사람들을 떠올리지 않았다.', 
+'이 영화는 내가 촬영하지 않은 세 사람에 대한 기록이다. 세 사람은 지난 20년간 한국 사회에서 반복된 세 번의 촛불집회에서 각각의 실패를 겪었다. 그 누구보다도 촛불의 힘을 믿었던 이들은 어느 순간 침묵과 증발을 택했다. 나의 좌절과 실패 역시, 그들의 것과 조금도 다르지 않다.', 
+'2021 제22회 전주국제영화제
+2021 제13회 DMZ국제다큐멘터리영화제 단편경쟁 심사위원특별상
+2021 제21회 전북독립영화제
+2021 제24회 도시영화제',
+'권순현.jpeg',
+'2016 골목의 이야기
+2019 례', 
+'',
+'',
+'<농몽>은 지난 20여년의 세월 동안 각자 다른 방식과 마음으로 촛불집회에 참여했던 세 사람에 대한 기억을 오가는 영화다. 하지만 그들을 카메라 앞에 세우지 못했기에, 감독 자신이 주체가 되어 그들이 남긴 말들을 끌어모아 영화를 한 조각 한 조각 완성해 나간다. 영화가 그렇게 지난 20여년의 시간을 재구성하는 동안 관객은 ‘촛불의 추억’ 다섯 번째 참여자가 되어 스스로에게 질문을 하게 된다. 촛불은 꿈인가. 흘러간 과거인가. 이제 촛불도 지겨우니 영화 속에서 얘기하듯 비눗방울 같은 걸 광장에 날리는 상상을 해야 할 때인가. 1980년대의 집회 현장을 가득 채우던 최루탄 가스 대신 광장이 촛불로 채워지기 시작했던 2000년대 초반, 촛불집회는 문화가 되었고 이후 정권 교체를 이뤄 낸 시민혁명의 상징이 되었다. 하지만 이제는 과거가 되었고, <농몽>은 오프닝과 엔딩에서 반복하며 촛불은 끝났다고, 꿈이었다고 한다. 감독의 말처럼 이제 광장은 텅 비었고, 각자의 방 속에서 천천히 세상은 조용히 끝나고 있다. 하지만 마지막 그의 말이 가슴을 때린다. “기억은 남아 있어. 우리는 꼭 살아남자.”
+2022년이 오고 있다. 촛불이 농몽이 되어서는 안 되는 이유다.',
+'https://tv.naver.com/embed/23408487',0);
+
+
+--book13
+
+drop sequence bookseq;
+create sequence bookseq
+increment by 1
+start with 1
+nocache;
+
+
+drop table book cascade constraints;
+create table book(
+   r_num number primary key, --seq
+   r_userId varchar2(30) not null,
+   r_price number,
+   r_reserDay date not null,
+   r_mname varchar2(30) not null,
+   r_theater varchar2(30) not null,
+   r_cinema number,
+   r_day date not null,
+   r_mstart varchar2(20) not null,
+   r_sno varchar2(30) not null,
+   r_paying varchar2(30) not null,
+   r_point number default 0,
+   r_ticket varchar2(50)
+);
+
+
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-01',
+					'정직한 후보2','Boda강남','2022-11-01','12:00','c1','card');
+
+					
+					
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c11','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c12','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-02',
+					'정직한 후보2','Boda강남','2022-11-02','12:00','c13','card');
+					
+					
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					'정직한 후보2','Boda강남','2022-11-03','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-03',
+					
+					
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',
+					'정직한 후보2','Boda강남','2022-11-04','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',	'정직한 후보2','Boda강남','2022-11-04','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',	'정직한 후보2','Boda강남','2022-11-04','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',	'정직한 후보2','Boda강남','2022-11-04','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',	'정직한 후보2','Boda강남','2022-11-04','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',	'정직한 후보2','Boda강남','2022-11-04','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-04',	'정직한 후보2','Boda강남','2022-11-04','12:00','c9','card');
+			
+			
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-05',
+					'정직한 후보2','Boda강남','2022-11-05','12:00','c9','card');
+
+			
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-20',
+					'정직한 후보2','Boda강남','2022-11-20','12:00','c9','card');
+
+			
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-21',
+					'정직한 후보2','Boda강남','2022-11-21','12:00','c9','card');
+
+			
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-22',
+					'정직한 후보2','Boda강남','2022-11-22','12:00','c9','card');
+
+			
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-23',
+					'정직한 후보2','Boda강남','2022-11-23','12:00','c9','card');
+
+			
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','a10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b9','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','b10','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c1','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c2','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c3','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c4','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c5','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c6','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c7','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c8','card');
+insert into book(r_num,r_userId,r_reserDay,r_mname,r_theater,r_day,r_mstart,r_sno,r_paying) 
+			values(bookseq.nextval,'a123','2022-11-24',
+					'정직한 후보2','Boda강남','2022-11-24','12:00','c9','card');
+
+
+commit;
+
+---------------------------
+
+drop table ask cascade constraints;
+
+create table ask( 
+	ask_num number primary key,
+	ask_title varchar2(1000),
+	ask_content varchar2(4000)
+);
+drop sequence ask_seq;
+create sequence ask_seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 10000
+  nocache;
+  
+insert into ask values(
+	ask_seq.nextval,'[영화관이용] 상영관 내 다른 음식물의 반입이 되나요?',
+	'Boda 상영관 내 외부 음식물 반입은 가능합니다.
+단, 강한 냄새로 인해 영화 관람 시 다른 고객님에게 방해가 되는 품목에 한해서 (예 : 족발, 순대 등)
+취식 후 입장해 주실 것을 고객님께 양해(권고) 드리고 있습니다.
+쾌적한 영화 관람과 안전을 위하여 다소 불편한 점이 있으시더라도 많은 양해 부탁 드리겠습니다.'
+);
+insert into ask values(
+	ask_seq.nextval,'[영화관이용] 관람 등급에 대해 알고 싶습니다.',
+	'Boda는 영화진흥법에 의한 영화별 관람등급을 철저히 준수하고 있습니다.
+■ 등급 기준
+  - 전체 관람가 : 모든 연령의 관람객이 관람 할 수 있는 영화
+  - 12세 관람가 : 만 12세 미만의 관람객은 관람 할 수 없는 영화 (보호자 동반 시 12세 미만 관람 가능)
+  - 15세 관람가 : 만 15세 미만의 관람객은 관람 할 수 없는 영화 (보호자 동반 시 15세 미만 관람 가능)
+  - 청소년 관람불가 : 만 18세 미만의 관람객은 관람 할 수 없는 영화
+※ 만 18세 이상이라도 고등학생 신분은 청소년 관람불가 상영관에 입장 불가 (초, 중등교육법 제2조 규정)
+※ 관람 시 보호자는 만 20세 이상의 성인만 가능
+※ 온라인 예매 시 로그인한 예매자의 나이가 영화 등급에 해당 되지 않을 시 예매/결제 진행 불가
+※ 12세/15세 관람가 영화의 경우 입장시 본인 확인이 필요한 관계로 실물 신분증명서(학생증/여권 등) 지참 必
+※ 청소년 관람불가의 경우 입장 시 본인 확인이 필요한 관계로 실물 신분증명서(주민등록증/운전면허증/여권/PASS 모바일 운전면허증) 지참 必
+     (신분증 사진, PASS 화면 캡쳐본 사용 불가)'
+);
+insert into ask values(
+	ask_seq.nextval,'[홈페이지] 영화관람권으로 예매하는 방법',
+	'1) 온라인 예매(웹/앱)시
+- [마이페이지] – [영화관람권] – [등록하기] – [영화관람권 등록] 에서
+  관람권등록 후 영화예매시 결제단계에서 적용하여 예매가능합니다.
+- 웹/앱 로그인 후 예매선택후 결제 단계에서
+  [관람권/모바일상품권] - [관람권] - [관람권 등록] - [적용] - [결제] 차례로 선택하시면 예매가능합니다.
+* 완료된 예매 내역은 <예매확인/취소>에서도 확인 가능합니다.
+* 영화 관람권 사용의 경우, 온라인 비회원 예매는 불가능합니다.
+2) 무인발권기 예매시
+- 멤버십에 등록완료한 관람권의 경우 결제단계에서 [멤버십 조회] 후 보유목록 내에서 적용하여 예매가능합니다.
+  (회원 등록된 관람권의 경우 무인발권기에서 [바코드/난수번호]로 조회하여 사용불가)
+- 미등록관람권의 경우 관람권 번호 12자리와 인증번호4자리를 입력하여 조회 후 예매가능합니다.
+* 멤버십 등록된 영화관람권의 경우 현장매표소에서는 사용불가능합니다.'
+);
+insert into ask values(
+	ask_seq.nextval,'[홈페이지] 인터넷 예매 후 Boda 현장에서 환불(예매 취소)이 가능한가요?',
+	'인터넷 예매하신 부분은 상영시간 전까지는 Boda 현장에서 환불 가능합니다.
+단, 부분 환불은 되지 않습니다.
+- 신용카드 환불의 경우 익일에 승인 취소를 확인하실 수 있습니다.
+- 예매일과 취소일이 다른 경우에 취소 확인 시까지 시일이 소요될 수 있습니다.'
+);
+insert into ask values(
+	ask_seq.nextval,'[모바일] 관람권 사용해서 예매했는데 현금영수증 발행을 못했어요!',
+	'관람권 권종에 따라 현금영수증 발급 가능 여부가 상이하기 때문에
+현금영수증 발급 가능 여부 확인 후, 발급 가능한 사항 관람권일 경우에 자진발급 번호 안내해 드리고 있습니다.
+이후 국세청 홈페이지 접속하시어, 해당 자진발급 번호 입력하여 발급 받으실 수 있습니다.
+자세한 사항은 Boda고객센터(1544-1122)로 문의주시면 안내 드리겠습니다.'
+);
+
+commit;
+
+drop table board cascade constraints;
+
+create table board( 
+	num number not null primary key, 
+	writer varchar2(100) not null, -- 작성자
+	email varchar2(100),
+	subject varchar2(2000) not null,
+	passwd varchar2(120) not null,
+	reg_date date not null,
+	readcount int default 0,
+	ref number not null,
+	re_step number not null,
+	re_level number not null,
+	content varchar2(4000) not null,
+	ip varchar2(150) not null
+);
+
+drop sequence board_seq;
+create sequence board_seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 10000
+  nocache;
+  
+  
+insert into board(num,writer,email,subject,passwd,reg_date,readcount,ref,re_step,re_level,content,ip)
+values(board_seq.nextval,'hong','hong@hanmail.net','팝콘을 미리 구매하고 싶어요','1212','2022-9-1',3,0,0,0,'팝콘 미리 구매하려고 하는데 구매는 어디서 하나요?','127.0.0.1');
+
+insert into board(num,writer,email,subject,passwd,reg_date,readcount,ref,re_step,re_level,content,ip)
+values(board_seq.nextval,'admin','admin@naver.com','답변드립니다','0000','2022-9-1',102,0,4,1,'스토어 메뉴에서 구매 가능합니다','166.2.2.1');
+
+insert into board(num,writer,email,subject,passwd,reg_date,readcount,ref,re_step,re_level,content,ip)
+values(board_seq.nextval,'sese','sese@google.com','예매 취소하고 싶어요','1212','2022-9-14',6,1,0,0,'어떻게 하죠?','127.0.0.1');
+
+insert into board(num,writer,email,subject,passwd,reg_date,readcount,ref,re_step,re_level,content,ip)
+values(board_seq.nextval,'admin','admin@naver.com','답변드립니다','0000','2022-9-14',674,1,1,1,'[마이페이지-나의예매내역]에서 취소 가능합니다','166.2.2.1');
+
+
+
+commit;
+
+
+----------event DB
+
+drop table event cascade constraints;
+create table event(
+	no number,
+	title varchar2(80),
+	contents varchar2(70),
+	main_img varchar2(50),
+	contents_img varchar2(50),
+	sday varchar2(25),
+	eday varchar2(25)
+);
+
+drop sequence e_seq;
+create sequence e_seq
+increment by 1
+start with 1
+nocache;
+
+col no for 99
+col title for a8
+col contents for a8
+col main_img for a12
+col contents_img for a12
+col sday for a12
+col eday for a12
+select * from event;
+
+commit;
+
+
+[room]
+	
+--room table
+
+drop sequence room_seq;
+create sequence room_seq
+	increment by 1
+	start with 10
+	minvalue 1
+	maxvalue 10000000
+	nocache;
+	
+drop table room cascade constraints;
+create table room(
+	no number default 0,
+	room_no number primary key,
+	mno1 number references member(no) on delete cascade,
+	mno2 number references member(no) on delete cascade,
+	mno1_lastvisit timestamp default '70/01/01 00:00:00.000000',
+	mno2_lastvisit timestamp default '70/01/01 00:00:00.000000'
+	);
+
+
+insert into room values(0, 1, 1,0,'22/11/23 14:11:42.000000','22/11/23 14:06:22.000000');
+insert into room values(0, 2, 2,0,'22/11/23 13:56:15.000000','22/11/23 14:06:20.000000');
+insert into room values(0, 3, 3,0,'22/11/23 14:12:47.000000','22/11/23 14:13:14.000000');
+insert into room values(0, 4, 4,0,'22/11/23 14:14:40.000000','22/11/23 14:15:11.000000');
+insert into room values(0, 5, 5,0,'22/11/23 14:16:48.000000','22/11/23 14:17:06.000000');
+insert into room values(0, 6, 6,0,'22/11/23 14:18:40.000000','70/01/01 00:00:00.000000');
+insert into room values(0, 7, 7,0,'70/01/01 00:00:00.000000','70/01/01 00:00:00.000000');
+insert into room values(0, 8, 8,0,'70/01/01 00:00:00.000000','70/01/01 00:00:00.000000');
+
+col room_no for 99
+col mno1 for 99
+col mno2 for 99
+col MNO1_LASTVISIT for a25
+col MNO2_LASTVISIT for a25
+select * from room;
+
+
+
+
+--chat table
+
+drop sequence chat_seq;
+create sequence chat_seq
+	increment by 1
+	start with 26
+	minvalue 1
+	maxvalue 10000000
+	nocache;
+
+
+drop table chat cascade constraints;
+create table chat(
+	no number primary key,
+	room_no number references room(room_no) on delete cascade,
+	send_mno number references member(no) on delete cascade,
+	read_mno number references member(no) on delete cascade,
+	time timestamp default sysdate,
+	content varchar2(1000) not null
+	);
+
+
+insert into chat values(1, 1,1,0,'22/11/23 13:42:00.000000','관리자님 안녕하세요');
+insert into chat values(2, 1,1,0,'22/11/23 13:43:26.000000','전화번호를 수정하고 싶습니다.');
+insert into chat values(3, 1,1,0,'22/11/23 13:43:41.000000','어디서 하면 되나요?');
+
+insert into chat values(4, 1,0,1,'22/11/23 13:45:48.000000','고객님 안녕하세요');
+insert into chat values(5, 1,0,1,'22/11/23 13:46:12.000000','문의해주신 사항에 대한 답변 드리겠습니다');
+insert into chat values(6, 1,0,1,'22/11/23 13:46:21.000000','상단의 마이페이지를 클릭하시고');
+insert into chat values(7, 1,0,1,'22/11/23 13:46:29.000000','좌측 회원정보 변경을 클릭하시면');
+insert into chat values(8, 1,0,1,'22/11/23 13:46:33.000000','개인정보 수정 가능합니다');
+insert into chat values(9, 1,0,1,'22/11/23 13:46:47.000000','다른 문의사항 있으신가요?');
+
+insert into chat values(10, 1,1,0,'22/11/23 13:47:14.000000','아니요~ 감사합니다');
+insert into chat values(11, 1,1,0,'22/11/23 13:47:41.000000','감사합니다. 즐거운 관람 되세요^^');
+--
+
+insert into chat values(12, 2,2,0,'22/11/23 13:54:57.000000','안녕하세요');
+insert into chat values(13, 2,2,0,'22/11/23 13:55:01.000000','혹시 초코팝콘은 판매 예정 없으실까요?');
+insert into chat values(14, 2,0,2,'22/11/23 13:55:34.000000','고객님 죄송합니다');
+insert into chat values(15, 2,0,2,'22/11/23 13:55:37.000000','초코팝콘은 판매 예정이 없습니다');
+insert into chat values(16, 2,0,2,'22/11/23 13:55:46.000000','다른 문의 사항 있으실까요?');
+insert into chat values(17, 2,2,0,'22/11/23 13:56:15.000000','아니요 괜찮습니다ㅠㅠ');
+insert into chat values(18, 2,0,2,'22/11/23 13:56:47.000000','문의주셔서 감사합니다.');
+--
+
+insert into chat values(19, 3,3,0,'22/11/23 14:12:47.000000','시설 너무 좋아요');
+insert into chat values(20, 3,0,3,'22/11/23 14:13:14.000000','감사합니다. 즐거운 관람 되세요^^');
+--
+
+insert into chat values(21, 4,4,0,'22/11/23 14:14:37.000000','사이트 너무 이뻐요');
+insert into chat values(22, 4,0,4,'22/11/23 14:15:11.000000','소중한 칭찬 감사합니다');
+--
+
+insert into chat values(23, 5,5,0,'22/11/23 14:16:48.000000','영화관 시설 너무 좋아요');
+insert into chat values(24, 5,0,5,'22/11/23 14:17:06.000000','감사합니다');
+--
+
+insert into chat values(25, 6,6,0,'22/11/23 14:18:40.000000','나초 정말 맛있어요');
+--
+
+
+col NO for 99
+col ROOM_NO for 99  
+col SEND_MNO for 99 
+col READ_MNO for 99
+col TIME for a25
+col CONTENT for a50
+select * from chat order by no;
+
+commit;
+

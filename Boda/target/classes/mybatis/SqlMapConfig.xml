@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+  		<typeAlias type="theater.model.TheaterBean" alias="Theater"/> 
+  		<typeAlias type="movie.model.MovieBean" alias="MyMovie"/>
+  		<typeAlias type="movie.model.IndeMovieBean" alias="MyIndeMovie"/>
+  		<typeAlias type="time.model.TimeTableBean" alias="TimeTable"/>
+  		<typeAlias type="boda.member.model.MemberBean" alias="myMember"/>
+		<typeAlias type="store.model.StoreBean"/>
+		<typeAlias type="review.model.ReviewBean" alias="MyReview"/>
+		<typeAlias type="look.model.LookBean" alias="MyLook"/>
+		<typeAlias type="ask.model.AskBean" alias="MyAsk"/>
+  	</typeAliases>
+  	
+	<mappers>
+		<mapper resource ="mybatis/seat.xml"/>
+		<mapper resource="mybatis/theater.xml"/>
+		<mapper resource="mybatis/movie.xml"/>
+		<mapper resource="mybatis/indeMovie.xml"/>
+		<mapper resource="mybatis/book.xml"/>
+		<mapper resource="mybatis/member.xml"/>
+		<mapper resource="mybatis/boda.xml"/>
+		<mapper resource="mybatis/store.xml"/>
+		<mapper resource="mybatis/review.xml"/>
+		<mapper resource="mybatis/order.xml"/>
+		<mapper resource="mybatis/myticket.xml"/>
+		<mapper resource="mybatis/d_member.xml"/>
+		<mapper resource="mybatis/event.xml"/>
+		<mapper resource="mybatis/look.xml"/>
+		<mapper resource="mybatis/ask.xml"/>
+		<mapper resource="mybatis/chat.xml" />
+		<mapper resource="mybatis/room.xml" />
+	</mappers>
+</configuration>
+  

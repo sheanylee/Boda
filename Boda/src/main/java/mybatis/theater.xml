@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="theater.model.Theater">
+   <select id="GetRegions" resultType="Theater">
+      select t_region, t_code, t_theater from theater where t_code like '_01' group by t_region,t_code,t_theater
+   </select>
+
+   <select id="GetTheater" resultType="Theater">
+      select t_theater from theater 
+      <if test="t_region != null">
+      where t_region like #{t_region} or t_region like #{t_region2} or t_region like #{t_region3} 
+      </if>
+      group by t_theater order by 1
+   </select>
+
+   <select id="GetInfoByregion" resultType="Theater">
+      select rownum, t_num, t_img,t_theater,t_region,t_gu,t_address,t_tel from theater where t_theater = #{t_theater} and rownum=1
+   </select>
+
+   <select id="GetMax" resultType="Theater">
+      select max(t_name) as max, sum(t_seat) as seat from theater where
+      t_theater=#{t_theater}
+   </select>
+
+   <insert id="InsertTheater">
+      insert into theater
+      values(theater_seq.nextval,#{t_code},#{t_day},#{t_region},#{t_gu},#{t_address},
+      #{t_theater},#{t_location},#{t_img},#{t_tel},#{t_parking},#{t_name},#{t_seat},#{t_premium})
+   </insert>
+
+   <select id="GetAllTheater" resultType="Theater">
+      select * from theater
+      <if test="whatColumn == 't_code'">
+         where t_code like #{keyword} 
+      </if>
+
+      <if test="whatColumn == 't_region'">
+         where t_region like #{keyword}
+      </if>
+
+      <if test="whatColumn == 't_theater'">
+         where t_theater like #{keyword}
+      </if>
+      <if test="whatColumn == ''">
+         where t_theater like #{keyword} or t_code like #{keyword} or t_region like #{keyword}
+      </if>
+      order by t_num desc
+   </select>
+
+   <select id="GetTotalCount" resultType="int">
+      select count(*) count from theater
+      <if test="whatColumn == 't_code'">
+         where t_code like #{keyword}
+      </if>
+
+      <if test="whatColumn == 't_region'">
+         where t_region like #{keyword}
+      </if>
+
+      <if test="whatColumn == 't_theater'">
+         where t_theater like #{keyword}
+      </if>
+      <if test="whatColumn == ''">
+         where t_theater like #{keyword} or t_code like #{keyword} or t_region like #{keyword}
+      </if>
+
+   </select>
+   
+   <select id="GetTotalCountTimeTable" resultType="int">
+      select count(*) count from timetable
+      <if test="whatColumn == 'theater'">
+         where theater like #{keyword}
+      </if>
+
+      <if test="whatColumn == 'mname'">
+         where mname like #{keyword}
+      </if>
+
+   </select>
+
+   <select id="GetDetail" resultType="Theater">
+      select * from theater where t_num = #{t_num}
+   </select>
+
+   <delete id="DeleteTheater">
+      delete theater where t_num=#{t_num}
+   </delete>
+
+   <update id="UpdateTheater">
+      update theater set t_code=#{t_code}, t_day=#{t_day}, t_region=#{t_region},
+      t_gu=#{t_gu},
+      t_address=#{t_address}, t_location=#{t_location}, t_theater=#{t_theater}, t_img=#{t_img}, t_tel=#{t_tel},
+      t_parking=#{t_parking}
+      , t_name=#{t_name}, t_seat=#{t_seat}, t_premium=#{t_premium} where
+      t_num=#{t_num}
+   </update>
+
+   <select id="GetTableByTheater" resultType="time.model.TimeTableBean"><!-- 수정 -->
+      select distinct x.cinema, x.num, x.theater, to_char(x.mstart,'HH24:mi') as mstart, 
+      TO_CHAR(x.mstart + y.m_runtime/(24*60),'HH24:MI') as mend, x.mname, to_char(x.day,'yyyy-MM-dd') as day, x.bookingseat,
+      y.m_genre, y.m_runtime, y.m_grade, to_char(y.m_date,'yyyy-MM-dd') as m_date, y.m_enddate as m_Enddate, 
+      z.t_seat, z.t_premium 
+      from timetable x, movie y, theater z 
+      where x.mname = y.m_name 
+      and x.theater = z.t_theater 
+      and x.cinema = z.t_name 
+      and x.day = #{day} 
+      and x.theater = #{theater} 
+      and day >= to_char(sysdate,'yyyy-MM-dd') 
+      and to_char(x.mstart,'HH24:mi') >= to_char(sysdate,'HH24:Mi')
+   </select>
+   
+   <select id="GetIndeTableByTheater" resultType="time.model.TimeTableBean"><!-- 추가 -->
+      select distinct x.cinema, x.num, x.theater, to_char(x.mstart,'HH24:mi') as mstart, 
+      TO_CHAR(x.mstart + 60/(24*60),'HH24:MI') as mend, x.mname, to_char(x.day,'yyyy-MM-dd') as day, x.bookingseat,
+      y.genre as m_genre, y.runtime as m_runtime, y.year as m_date, 
+      z.t_seat, z.t_premium 
+      from timetable x, indemovie y, theater z 
+      where x.mname = y.title 
+      and x.theater = z.t_theater 
+      and x.cinema = z.t_name 
+      and x.day = #{day} 
+      and x.theater = #{theater} 
+   </select>
+
+     <select id="GetTimeTable" resultType="time.model.TimeTableBean">
+      select distinct x.cinema, x.num, x.theater, to_char(x.mstart,'HH24:mi') as
+      mstart, TO_CHAR(x.mstart + y.m_runtime/(24*60),'HH24:MI') as mend, x.mname, to_char(x.day,'yyyy-MM-dd') as day,
+      y.m_name,y.m_genre, y.m_runtime, y.m_grade, to_char(y.m_date,'yyyy-MM-dd') as m_date, y.m_enddate as m_Enddate, 
+      z.t_seat, z.t_premium, x.bookingseat
+      from timetable x, movie y, theater z 
+      where x.mname = y.m_name and x.theater = z.t_theater and x.cinema = z.t_name 
+      <if test="whatColumn == 'theater'">
+         and x.theater like #{keyword} and x.mname = y.m_name and x.cinema =
+         z.t_name
+      </if>
+      <if test="whatColumn == 'mname'">
+         and x.theater = z.t_theater and x.cinema = z.t_name and x.mname like
+         #{keyword}
+      </if>
+      order by x.num desc
+   </select>
+   
+
+  <select id="GetTimeTableOfIndeMovie" resultType="time.model.TimeTableBean"> <!-- gayoung 추가 -->
+      select distinct x.cinema, x.num, x.theater, to_char(x.mstart,'HH24:mi') as
+      mstart, TO_CHAR(x.mstart + 60/(24*60),'HH24:MI') as mend, x.mname, to_char(x.day,'yyyy-MM-dd') as day,
+      y.genre as m_genre, y.runtime as m_runtime, y.year as m_date, 
+      z.t_seat, z.t_premium, x.bookingseat 
+      from timetable x, indemovie y, theater z 
+      where x.mname = y.title and x.theater = z.t_theater and x.cinema = z.t_name 
+      <if test="whatColumn == 'theater'">
+         and x.theater like #{keyword} and x.mname = y.title and x.cinema =
+         z.t_name
+      </if>
+      <if test="whatColumn == 'mname'">
+         and x.theater = z.t_theater and x.cinema = z.t_name and x.mname like
+         #{keyword}
+      </if>
+      order by x.num desc
+   </select>
+
+   <select id="GetMovie" resultType="MyMovie">
+      select * from movie where m_enddate > sysdate and sysdate >= m_date or m_name like '%(재상영)%'
+   </select>
+
+   <insert id="InsertTimeTable">
+      insert into timetable values(time_seq.nextval,#{theater},#{cinema},#{day},#{mstart},
+   15,'',#{mname},'','',#{m_runtime},'',0)
+   </insert>
+
+   <delete id="DeleteTable">
+      delete timetable where num = #{num}
+   </delete>
+   
+   <select id="GetCinemaByTheater" resultType="Theater">
+      select t_name from theater 
+      where t_theater = #{t_theater}
+   </select>
+   
+   <select id="GetTimeTableByNum" resultType="time.model.TimeTableBean">
+      select distinct x.cinema, x.num, x.theater, to_char(x.mstart,'HH24:mi') as
+      mstart, TO_CHAR(x.mstart + y.m_runtime/(24*60),'HH24:MI') as mend, x.mname, to_char(x.day,'yyyy-MM-dd') as day,
+      y.m_genre, y.m_runtime, y.m_grade, to_char(y.m_date,'yyyy-MM-dd') as m_date, y.m_enddate as m_Enddate, 
+      z.t_seat, z.t_premium
+      from timetable x, movie y, theater z
+      where x.mname = y.m_name and x.theater = z.t_theater and x.cinema = z.t_name and x.num = #{num}
+   </select>
+   
+   <update id="UpdateTimeTable">
+      update timetable set cinema = #{cinema}, day = #{day}, mstart=to_date(#{mstart},'HH24:mi:ss'), mname=#{mname} where num = #{num}
+   </update>
+   
+   <select id="TableInsertCheck" resultType="time.model.TimeTableBean">
+      select * from timetable where theater=#{theater} and cinema = #{cinema} and day = #{day} and to_char(mstart,'HH24:mi')=#{time}
+   </select>
+   
+   <select id="GetTimeTableIndeByNum" resultType="time.model.TimeTableBean"><!-- 0925추가 -->
+         select distinct x.cinema, x.num, x.theater, to_char(x.mstart,'HH24:mi') as
+      mstart, TO_CHAR(x.mstart + 60/(24*60),'HH24:MI') as mend, x.mname, to_char(x.day,'yyyy-MM-dd') as day,
+      y.genre as m_genre, y.runtime as m_runtime, y.year as m_date, 
+      z.t_seat, z.t_premium
+      from timetable x, indeMovie y, theater z
+      where x.mname = y.title and x.theater = z.t_theater and x.cinema = z.t_name and x.num = #{num}
+   </select>
+   
+   <select id="SearchTimeDupl" resultType="time.model.TimeTableBean">
+      select num,theater,cinema,to_char(day, 'yyyy-MM-dd') day,to_char(mstart, 'HH24') mstart,gap,to_char(mstart+mrun/(24*60), 'HH24') mend,mname,mgenre,mgrade,mrun,open,to_char(mstart-gap/(24*60), 'HH24') as noinput1, to_char(mstart+mrun/(24*60)+15/(24*60), 'HH24') as noinput2 
+      from timetable where theater=#{theater} and cinema=#{cinema} and day=#{day}
+   </select>
+   
+ <!--   //11-23 -->
+   
+   <select id="GetIncome" resultType="Theater">
+      select * from income where t_name = #{t_theater}
+   </select>
+   
+   <select id="GetVisitData" resultType="Theater">
+      select vno,to_char(visit_date,'MM-dd') as visit_date ,cnt from visit where to_char(visit_date,'yyyy-MM') = #{day} order by visit_date
+   </select>
+   
+   <select id="GetReserveData" resultType="Theater">
+      select count(*) as rcnt, to_char(r_reserDay,'MM-dd') as rday from book where to_char(r_reserDay,'yyyy-MM') = #{day} and r_theater = #{t_name}
+       group by r_reserDay order by r_reserDay
+
+   </select>
+   
+</mapper>
+        

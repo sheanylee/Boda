@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member.model.Member">
+	<select id="IdCheck" resultType="int">
+		select count(*) from member where id=#{id}
+	</select>
+	
+	<select id="LoginCheck" resultType="int">
+		select count(*) from member where id=#{id} and pw=#{pw}
+	</select>
+	
+	<select id="GetMemberById" resultType="myMember">
+		select * from member where id=#{id}
+	</select>
+	
+	<insert id="InsertMember">
+		insert into member values(m_seq.nextval,#{name},#{id},#{pw},#{repw},#{ph0},#{ph1},
+		#{ph2},#{email},0)
+	</insert>
+	
+	<update id="UpdateMember">
+		update member set name=#{name}, pw=#{pw}, repw=#{repw}, ph0=#{ph0}, ph1=#{ph1}, 
+		ph2=#{ph2}, email=#{email} where id=#{id}
+	</update>
+	
+	<delete id="DeleteMember">
+		delete member where id=#{id}
+	</delete>
+	
+	<select id="FindId" resultType="myMember">
+		select * from member where name=#{name} and ph0=#{ph0} and ph1=#{ph1} and ph2=#{ph2}
+	</select>
+	
+	<select id="FindPw" resultType="myMember">
+		select * from member where name=#{name} and id=#{id} and ph0=#{ph0} and ph1=#{ph1} and ph2=#{ph2}
+	</select>
+	
+	<select id="GetAllMember" resultType="myMember">
+		select * from member where no>0 order by no
+	</select>
+	
+	<update id="UpdatePoint">
+		update member set point=#{point} where id=#{id}
+	</update>
+	
+	<update id="PlusPointByRoulet"> <!--가영 룰렛  -->
+		update member set point = point + #{point} where id = #{id} 
+	</update>
+	
+	<select id="GetPointByIdgainByRoulet" resultType="String"><!-- 가영 마이페이지 포인트 가져오기 -->
+		select point from member where id=#{userId}
+	</select>
+	
+	<select id="GetPointById" resultType="int">
+      select point from member where id=#{id}
+   </select>
+	
+	
+</mapper>
+<!-- member.xml -->

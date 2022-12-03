@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book.model.BookBean">
+   <select id="getAllMovieForBooking" resultType="TimeTable">
+     select distinct mname, m_genre 
+     from(
+         select t.mname, m.m_genre, t.day, to_char(m.m_enddate,'HH24:mi') as  m_enddate, m.m_date 
+         from timetable t inner join movie m
+         on t.mname = m.m_name)
+         where day = #{day} 
+        
+   </select>
+   <select id="getAllIndeMovieForBooking" resultType="TimeTable">
+      select distinct mname, GENRE as m_genre from(
+      select t.mname, i.genre, t.day
+      from timetable t inner join indemovie i
+      on t.mname = i.title)
+      where day = #{day}
+   </select>
+   
+   <select id="getRegionList" resultType="Theater">
+      select theater.t_region
+      from theater inner join timetable
+      on t_theater = theater
+      where
+      timetable.mname = #{mname}
+      group by theater.t_region
+   </select>
+
+   <select id="getAllTheaterForBooking" resultType="Theater">
+      select distinct t.t_theater
+      from theater t inner join timetable
+      on t.t_theater = theater
+      where t.t_region = #{selectRg} and mname = #{mname}
+   </select>
+
+   <select id="getAllTimeTableForBooking" resultType="time.model.TimeTableBean">
+      select * from 
+         (select distinct x.cinema, x.num, x.theater,
+         to_char(x.mstart,'HH24:mi') as mstart, to_char(x.mend,'HH24:mi') as mend, x.mname,
+         to_char(x.day,'yyyy-MM-dd') as day, y.m_genre,
+         y.m_runtime, y.m_grade, to_char(y.m_date,'yyyy-MM-dd') as m_date,
+         y.m_enddate as m_Enddate, z.t_seat, z.t_premium, x.bookingseat
+         from timetable x, movie y, theater z
+         where x.mname = y.m_name and x.theater = z.t_theater and x.cinema = z.t_name )
+      where theater =#{theater} and day =#{day} and mname = #{mname} 
+         and day >= to_char(sysdate,'yyyy-MM-dd') 
+         and mstart > to_char(sysdate,'HH24:Mi')
+   </select>
+   
+   <select id="getAllIndeTimeTableForBooking" resultType="time.model.TimeTableBean">
+      select * from 
+         (
+         select distinct x.cinema, x.num, x.theater,
+         to_char(x.mstart,'HH24:mi') as mstart, to_char(x.mend,'HH24:mi') as mend, x.mname,
+         to_char(x.day,'yyyy-MM-dd') as day, 
+         i.genre, i.runtime,
+         z.t_seat, z.t_premium, x.bookingseat
+         from timetable x, indemovie i, theater z
+         where x.mname = i.title and x.theater = z.t_theater and x.cinema = z.t_name )
+      where theater =#{theater} and day =#{day} and mname = #{mname}
+          and day >= to_char(sysdate,'yyyy-MM-dd') 
+         and mstart > to_char(sysdate,'HH24:Mi')
+   </select>
+
+   <insert id="UpdateSeat">
+      update seat
+      set status=1, USERNO=#{userNo}
+      where
+      sno=#{sno} and scode=#{scode} and tnum=#{tnum}
+
+   </insert>
+
+   <insert id="insertBookData">
+      insert into book
+      values(bookseq.nextval,#{r_userId},#{r_price},#{r_reserDay},#{r_mname},
+      #{r_theater},#{r_cinema},#{r_day},#{r_mstart},#{r_sno},#{r_paying},#{r_point},#{r_ticket})
+   </insert>
+
+   <select id="GetMyBookingList" resultType="book.model.BookBean"> <!--가영 -->
+      select distinct b.r_num, b.r_userId, b.r_price, b.r_reserDay,
+      b.r_mname, b.r_theater, b.r_cinema, b.r_day, b.r_mstart, b.r_sno,
+      b.r_paying, m.m_num, m.m_img as r_img
+      from book b, movie m, member i
+      where b.r_userId = #{userId} and m.m_name =
+      b.r_mname order by b.r_num desc
+   </select>
+   <select id="GetMyIndeBookingList" resultType="book.model.BookBean"> <!--가영 -->
+      select distinct b.r_num, b.r_userId, b.r_price, b.r_reserDay,
+      b.r_mname, b.r_theater, b.r_cinema, b.r_day, b.r_mstart, b.r_sno,
+      b.r_paying, m.num, m.img as r_img
+      from book b, indemovie m, member i
+      where b.r_userId = #{userId} and m.title =
+      b.r_mname order by b.r_num desc
+   </select>
+
+   <select id="getAllBookingListTotalCount" resultType="int">
+      select count(*)
+      from book
+      <if test="whatColumn == 'r_num'">
+         where r_num like #{keyword}
+      </if>
+      <if test="whatColumn == 'r_userId'">
+         where r_userId like #{keyword}
+      </if>
+      <if test="whatColumn == 'r_mname'">
+         where r_mname like #{keyword}
+      </if>
+      <if test="whatColumn == 'r_price'">
+         where r_price like #{keyword}
+      </if>
+   </select>
+
+
+   <select id="getAllBookingList" resultType="book.model.BookBean">
+      select * from book
+      <if test="whatColumn == 'r_num'">
+         where r_num like #{keyword}
+      </if>
+      <if test="whatColumn == 'r_userId'">
+         where r_userId like #{keyword}
+      </if>
+      <if test="whatColumn == 'r_mname'">
+         where r_mname like #{keyword}
+      </if>
+      <if test="whatColumn == 'r_price'">
+         where r_price like #{keyword}
+      </if>
+   </select>
+
+   <select id="insertBookingSeatCount" resultType="int">
+      update timetable
+      set bookingseat = bookingseat + #{person}
+      where num = #{tnum}
+   </select>
+
+   <update id="updatePoint">
+      update member 
+      set point = point - #{r_point} 
+      where id = #{id}
+   </update>
+   
+   <select id="getAllTicketById" resultType="store.model.MyTicketBean">
+      select * from myticket where t_id=#{id}
+   </select>
+   
+   <!-- jh add -->
+     <update id="updateTicket">
+      update myticket
+      set t_order = t_order - #{t_order}
+      where t_id = #{t_id} and t_spec = #{t_spec}
+   </update>
+   
+   <!-- jh add -->
+   <delete id="refreshTicket">
+      delete from myticket 
+      where t_id=#{t_id} and t_order=0
+   </delete>
+   
+   <!-- jh add -->
+   <select id="getTnum" resultType="String">
+      select distinct num 
+      from(
+         select t.num, t.mname, t.theater, t.cinema, t.day, t.mstart
+         from book b, timetable t
+         where b.r_mname = t.mname 
+         and b.r_theater = t.theater and b.r_cinema = t.cinema and b.r_day = t.day)
+      where theater = #{r_theater} and cinema=#{r_cinema} and day = #{r_day} and mname = #{r_mname}
+   </select>
+   
+   <!-- jh add -->
+   <update id="cancelSeat">
+      update seat
+      set userno = null, status = 0
+      where sno = #{r_sno} and tnum=#{tnum}
+   </update>
+   
+   <!-- jh add -->
+   <update id="resetSeatCount">
+      update timetable
+      set bookingseat = bookingseat - #{bookingSeat}
+      where theater=#{theater} and cinema=#{cinema} and day=#{day} and mname=#{mname}
+   </update>
+   
+   <!-- jh add -->
+   <delete id="deleteBook">
+      delete from book
+      where r_num = #{r_num}
+   </delete>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member.model.D_Member">
+	<insert id="InsertData">
+		insert into d_member values(#{no},#{name},#{id},#{pw},#{repw},#{ph0},#{ph1},
+		#{ph2},#{email},#{point},sysdate)
+	</insert>
+	
+	<select id="GetAllData" resultType="boda.member.model.D_MemberBean">
+		select * from d_member order by no
+	</select>
+</mapper>
+<!-- d_member.xml -->

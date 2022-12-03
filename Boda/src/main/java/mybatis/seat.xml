@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="seat.model.SeatBean">
+   
+   <select id="GetStatus" resultType="String">
+      select status
+      from seat
+      where sno = #{sno} and scode=#{scode} and tnum = #{tnum}
+   </select>
+   
+   <select id="insertTnum">
+      insert into seat(sno, scode, status, tnum) 
+      values(#{sno},#{scode},0,#{tnum})
+   </select>   
+
+    <select id="getTimeTableNum" resultType="int">
+      select num from(
+         select distinct x.cinema, x.num, x.theater, to_char(x.mstart,'HH24:mi') as
+         mstart, to_char(x.mend,'HH24:mi') as mend, x.mname, to_char(x.day,'yyyy-MM-dd') as day,
+         x.mgenre,
+         z.t_seat, z.t_premium
+         from timetable x, theater z
+         where x.theater = z.t_theater and x.cinema = z.t_name 
+     )
+     where theater = #{theater} and cinema = #{cinema} and day = #{day} and mstart = #{mstart}
+           and mname = #{mname}
+   
+   </select>
+   
+   <select id="getSeatCode" resultType="String">
+         select distinct t_seat
+         from (select  s.theater, s.cinema, t.t_seat
+            from theater t, timetable s
+         where t.t_theater = s.theater and t.t_name = s.cinema)
+         where theater = #{theater} and cinema = #{cinema}
+   </select>
+   
+   
+   <select id="getReservationNum" resultType="seat.model.SeatBean">
+         select *
+         from seat
+          where tnum=#{tnum} and status=1
+   </select>
+
+</mapper>

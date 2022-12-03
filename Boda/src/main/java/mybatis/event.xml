@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="event.model.EventBean">
+	<insert id="InsertData">
+		insert into event values(e_seq.nextval,#{title},#{contents},#{main_img},
+		#{contents_img},#{sday},#{eday})
+	</insert>
+	
+	<select id="GetAllData" resultType="event.model.EventBean">
+		select * from event
+	</select>
+	
+	<select id="GetEventByNo" resultType="event.model.EventBean">
+		select * from event where no=#{no}
+	</select>
+	
+	<update id="UpdateEvent">
+		update event set title=#{title}, contents=#{contents}, main_img=#{main_img},
+		contents_img=#{contents_img}, sday=#{sday}, eday=#{eday} where no=#{no}
+	</update>
+	
+	<delete id="DeleteEvent">
+		delete event where no=#{no}
+	</delete>
+</mapper>
+<!-- event.xml -->

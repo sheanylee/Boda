@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.MovieBean">
+	
+	<select id="SelectBoxofficeCount" resultType="int">
+		select count(*) from (select * from movie
+		where sysdate+7 >= m_date and m_enddate >= sysdate)
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+	</select>
+	
+	<select id="SelectTotalCount" resultType="int">
+		select count(*) from movie
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+	</select>
+
+	<select id="SelectBoxoffice" resultType="MyMovie">
+		select * from (select * from movie
+		where sysdate+7 >= m_date and m_enddate >= sysdate)
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+		order by m_per desc
+	</select>
+		
+	<select id="SelectMovie" resultType="MyMovie">
+		select * from movie
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+		order by m_date desc
+	</select>
+		
+	<select id="SelectMovieDetail" resultType="MyMovie">
+		select * from movie
+		where m_num=#{m_num}
+	</select>
+	
+	<insert id="InsertMovie">
+	 	insert into movie
+	 	values(movie_seq.nextval, #{m_code}, #{m_name}, #{m_genre}, #{m_img}, #{m_grade}, 
+	 	#{m_nation}, #{m_star,jdbcType=VARCHAR}, #{m_pd}, #{m_actor}, #{m_runtime}, #{m_per,jdbcType=VARCHAR}, 
+	 	#{m_date}, #{m_enddate}, #{m_review,jdbcType=VARCHAR}, #{m_info}, #{m_view}, 0)
+	</insert>
+	
+	<delete id="DeleteMovie" parameterType="int">
+		delete movie
+		where m_num=#{m_num}
+	</delete>
+	
+	<update id="UpdateMovie">
+		update movie
+		set m_code=#{m_code}, m_name=#{m_name}, m_genre=#{m_genre}, m_img=#{m_img}, m_grade=#{m_grade}, 
+	 	m_nation=#{m_nation}, m_pd=#{m_pd}, m_actor=#{m_actor}, m_runtime=#{m_runtime}, 
+	 	m_date=#{m_date}, m_enddate=#{m_enddate}, m_info=#{m_info}, m_view=#{m_view}
+		where m_num=#{m_num}
+	</update>
+	
+	<select id="SelectMovieByM_num" resultType="MyMovie">
+		select * from movie
+		where m_num=#{m_num}
+	</select>
+	
+	<select id="SelectComingsoonCount" resultType="int">
+		select count(*) from (select * from movie
+		where m_date >= sysdate and m_name not like '%재상영%')
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+	</select>
+	
+	<select id="SelectComingsoon" resultType="MyMovie">
+		select * from (select * from movie
+		where m_date >= sysdate and m_name not like '%재상영%')
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+		order by m_date asc
+	</select>
+	
+	<select id="SelectReopening" resultType="MyMovie">
+		select * from movie
+		where m_name like '%재상영%'
+		order by m_like desc
+	</select>
+	
+	<!-- 종영영화 개수 -->
+	<select id="SelectEndMovieCount"  resultType="int">
+		select count(*) from (select * from movie
+		where sysdate >= m_enddate)
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+	</select>
+	
+	<!-- 종영영화 목록 -->
+	<select id="SelectEndMovie" resultType="MyMovie">
+		select * from (select * from movie
+		where sysdate >= m_enddate)
+		<if test="whatColumn==''">
+			where m_name like #{keyword} or m_genre like #{keyword} or m_actor like #{keyword}
+		</if>
+		<if test="whatColumn=='m_name'">
+			where m_name like #{keyword}
+		</if>
+		<if test="whatColumn=='m_genre'">
+			where m_genre like #{keyword}
+		</if>
+		<if test="whatColumn=='m_actor'">
+			where m_actor like #{keyword}
+		</if>
+		order by m_like desc, m_date desc
+	</select>
+	
+	<!-- 영화 좋아요 -->
+	<update id="LikeMovie">
+		update movie set m_like = m_like + 1
+		where m_num=#{m_num}
+	</update>
+
+
+	<select id="selectGenre" resultType="MyMovie"><!-- 가영 -->
+		select * from movie
+		where m_genre = #{genre}
+	</select>
+	
+	
+	<select id="selectIndeMovieByGenre" resultType="movie.model.IndeMovieBean"><!-- inde -->
+		select * from indemovie
+		where genre = #{genre}
+	</select>
+	
+	<select id="GetIndeMovieList" resultType="movie.model.IndeMovieBean"><!--gayoung 인디 -->
+		select * from indeMovie order by likes desc
+	</select>
+	
+	<select id="GetIndeMovieDetailByNum" resultType="movie.model.IndeMovieBean"><!--gayoung 인디 -->
+		select * from indeMovie where num = #{num}
+	</select>
+	<select id="GetMovie" resultType="movie.model.IndeMovieBean"><!-- 가영 -->
+		select num,kind,title,img,director,year,genre,color,type,runtime,premiere,synopsis,intention,fest_awards,likes,rank 
+		from (select num,kind,title,img,director,year,genre,color,type,runtime,premiere,synopsis,intention,fest_awards,likes,rank() over (order by likes desc) as rank 
+		from indemovie) where rank=1 or rank=2 or rank=3
+	</select>
+	
+	<select id="FindMnameByNum" resultType="MyMovie"><!-- 가영 -->
+		select * from movie where m_name = #{mname}
+	</select>
+	
+	<select id="GetMovieRuntime" resultType="String"><!-- 가영 -->
+		select m_runtime from movie where m_name = #{mname}
+	</select>
+	
+	<update id="LikesPlusByNum"><!-- 인디 -->
+		update indeMovie set likes = likes + 1 where num = #{num} 
+	</update>
+	
+	<select id="GetMovieNum" resultType="String">
+		select num from indemovie where title = #{title}
+	</select>
+
+
+
+
+	
+	
+	<!-- //가영추가 -->
+	<insert id="InsertVisitorCount">
+		insert into visit values(visit_seq.nextval,sysdate,1)
+	</insert>
+	
+	<select id="GetVisitorCountToday" resultType="int">
+		select count(*) from visit where to_char(visit_date ,'yy/MM/dd') = to_char(sysdate,'yy/MM/dd')
+	</select>
+	
+	<update id="UpdateTodayVisitorCount">
+		update visit set cnt = cnt+1 where to_char(visit_date ,'yy/MM/dd') = to_char(sysdate,'yy/MM/dd')
+	</update>
+
+
+</mapper>
+	
+	
